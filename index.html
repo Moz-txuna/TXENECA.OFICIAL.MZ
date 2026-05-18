@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Txeneca - Empréstimos Rápidos e Seguros | Plataforma Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #FF7F00;
+            --primary-dark: #E66A00;
+            --primary-light: #FFA347;
+            --secondary: #FFD700;
+            --white: #FFFFFF;
+            --light: #F8F9FA;
+            --dark: #111214;
+            --gray: #6C757D;
+            --gray-light: #E9ECEF;
+            --success: #10B981;
+            --error: #EF4444;
+            --border-radius: 20px;
+            --border-radius-sm: 12px;
+            --box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+            --box-shadow-lg: 0 25px 40px -12px rgba(0,0,0,0.2);
+            --transition: all 0.4s cubic-bezier(0.2,0.9,0.4,1.1);
+        }
+        body.dark-mode {
+            --light: #1A1D21;
+            --white: #23272E;
+            --dark: #F8F9FA;
+            --gray-light: #2C3138;
+        }
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+        body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--dark); transition: all 0.3s; overflow-x: hidden; }
+        
+        /* Logo Animation */
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .logo-icon {
+            display: inline-block;
+            animation: glowPulse 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 5px rgba(255,127,0,0.5));
+        }
+        @keyframes glowPulse {
+            0%, 100% { 
+                opacity: 0.7;
+                text-shadow: 0 0 0px rgba(255,127,0,0);
+                filter: drop-shadow(0 0 2px rgba(255,127,0,0.3));
+            }
+            50% { 
+                opacity: 1;
+                text-shadow: 0 0 8px rgba(255,127,0,0.8);
+                filter: drop-shadow(0 0 8px rgba(255,127,0,0.6));
+            }
+        }
+        
+        header { background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        body.dark-mode header { background: rgba(35,39,46,0.98); }
+        .header-container { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .dark-mode-toggle { background: var(--gray-light); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; color: var(--primary); font-size: 1.2rem; transition: var(--transition); }
+        .dark-mode-toggle:hover { transform: scale(1.05); background: var(--primary); color: white; }
+        .nav-toggle { display: none; background: none; border: none; font-size: 1.6rem; color: var(--primary); cursor: pointer; }
+        nav ul { display: flex; list-style: none; gap: 0.5rem; align-items: center; }
+        nav ul li a { text-decoration: none; color: var(--dark); font-weight: 500; padding: 0.5rem 1rem; border-radius: 50px; transition: var(--transition); }
+        nav ul li a:hover { background: rgba(255,127,0,0.1); color: var(--primary); transform: translateY(-2px); }
+        .btn { display: inline-block; padding: 0.85rem 1.8rem; border-radius: 50px; text-decoration: none; font-weight: 600; text-align: center; cursor: pointer; transition: var(--transition); border: none; font-size: 0.95rem; }
+        .btn-primary { background: linear-gradient(105deg, var(--primary), var(--primary-light)); color: var(--white); box-shadow: 0 8px 20px rgba(255,127,0,0.3); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(255,127,0,0.4); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); transition: var(--transition); }
+        .btn-outline:hover { background: var(--primary); color: white; transform: translateY(-3px); }
+        
+        /* Hero Premium */
+        .hero { background: linear-gradient(135deg, rgba(255,127,0,0.05), rgba(255,215,0,0.05)); padding: 4rem 2rem; position: relative; overflow: hidden; }
+        .hero-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .hero h1 { font-size: 3rem; font-weight: 800; line-height: 1.2; margin-bottom: 1.2rem; background: linear-gradient(135deg, var(--dark), var(--primary)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .hero-badge { display: inline-block; background: rgba(255,127,0,0.15); padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.8rem; font-weight: 600; color: var(--primary); margin-bottom: 1rem; }
+        .hero p { font-size: 1.1rem; color: var(--gray); margin-bottom: 2rem; }
+        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .stats-premium { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+        .stat-premium-item { background: rgba(255,255,255,0.6); backdrop-filter: blur(5px); padding: 0.6rem 1.2rem; border-radius: 40px; font-weight: 600; font-size: 0.85rem; transition: var(--transition); }
+        .stat-premium-item:hover { transform: translateY(-2px); background: rgba(255,127,0,0.1); }
+        body.dark-mode .stat-premium-item { background: rgba(0,0,0,0.3); }
+        
+        /* Simulador */
+        .simulator-premium { background: var(--white); border-radius: var(--border-radius); padding: 2rem; box-shadow: var(--box-shadow-lg); max-width: 700px; margin: -30px auto 2rem; position: relative; z-index: 10; transition: var(--transition); }
+        .simulator-premium:hover { transform: translateY(-5px); }
+        
+        /* Features e Steps */
+        .features, .how-it-works, .registration, .statistics, .testimonials, .reviews-section, .trust-section, .faq-section { padding: 4rem 2rem; }
+        .section-header { text-align: center; max-width: 700px; margin: 0 auto 3rem; }
+        .section-header h2 { font-size: 2.2rem; margin-bottom: 1rem; color: var(--primary); }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1400px; margin: 0 auto; }
+        .feature-card, .step, .trust-card, .review-card, .stat-card { background: var(--white); border-radius: var(--border-radius); padding: 2rem; text-align: center; transition: var(--transition); box-shadow: var(--box-shadow); border: 1px solid rgba(0,0,0,0.05); }
+        .feature-card:hover, .step:hover, .trust-card:hover, .review-card:hover { transform: translateY(-8px); box-shadow: var(--box-shadow-lg); }
+        .feature-icon { font-size: 2.5rem; color: var(--primary); margin-bottom: 1.2rem; }
+        .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; max-width: 1400px; margin: 0 auto; }
+        .step { position: relative; padding-top: 2rem; }
+        .step-number { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); width: 36px; height: 36px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        
+        /* Formulários */
+        .form-container, .instruction-card { max-width: 800px; margin: 0 auto; background: var(--white); padding: 2.5rem; border-radius: var(--border-radius); box-shadow: var(--box-shadow); transition: var(--transition); }
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+        .form-group input, .form-group select { width: 100%; padding: 0.85rem 1rem; border: 1px solid #ddd; border-radius: var(--border-radius-sm); font-size: 0.95rem; background: var(--white); transition: var(--transition); }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(255,127,0,0.1); }
+        .payment-methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .payment-method input { display: none; }
+        .payment-method label { display: flex; flex-direction: column; align-items: center; padding: 1rem; background: var(--light); border: 2px solid #ddd; border-radius: var(--border-radius-sm); cursor: pointer; transition: var(--transition); }
+        .payment-method input:checked + label { border-color: var(--primary); background: rgba(255,127,0,0.05); transform: scale(1.02); }
+        .loan-calculator { background: rgba(255,127,0,0.05); padding: 1.5rem; border-radius: var(--border-radius); margin: 1.5rem 0; }
+        .calculator-results { background: var(--white); padding: 1.2rem; border-radius: var(--border-radius-sm); margin-top: 1rem; }
+        .result-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #eee; }
+        .result-item.total { font-weight: 700; color: var(--primary); border-top: 2px solid var(--primary); padding-top: 0.8rem; margin-top: 0.5rem; }
+        .image-preview { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 12px; }
+        .preview-item { width: 100px; height: 100px; object-fit: cover; border-radius: 12px; border: 2px solid var(--primary-light); }
+        
+        /* Resumo do Empréstimo Premium */
+        .loan-summary-premium { background: linear-gradient(135deg, rgba(255,127,0,0.08), rgba(255,215,0,0.05)); border-radius: var(--border-radius); padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid rgba(255,127,0,0.2); }
+        .loan-summary-premium h4 { color: var(--primary); margin-bottom: 1rem; font-size: 1.2rem; }
+        .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+        .summary-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px dashed rgba(255,127,0,0.2); }
+        .summary-item.highlight { color: var(--primary); font-weight: 700; border-bottom: 2px solid var(--primary); margin-top: 0.5rem; padding-top: 0.8rem; }
+        
+        /* Trust Grid */
+        .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 2rem auto; }
+        
+        /* FAQ Accordion */
+        .faq-list { max-width: 800px; margin: 0 auto; }
+        .faq-item { background: var(--white); border-radius: var(--border-radius-sm); margin-bottom: 1rem; overflow: hidden; transition: var(--transition); }
+        .faq-question { padding: 1.2rem; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; background: var(--white); transition: var(--transition); }
+        .faq-question:hover { background: rgba(255,127,0,0.05); }
+        .faq-answer { max-height: 0; padding: 0 1.2rem; overflow: hidden; transition: max-height 0.4s ease; color: var(--gray); }
+        .faq-item.active .faq-answer { max-height: 300px; padding: 0 1.2rem 1.2rem; }
+        
+        /* Loading Overlay */
+        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; display: none; justify-content: center; align-items: center; }
+        .loading-content { background: var(--white); padding: 2rem; border-radius: var(--border-radius); text-align: center; max-width: 350px; }
+        .progress-bar { width: 100%; height: 8px; background: #e0e0e0; border-radius: 10px; margin: 1rem 0; overflow: hidden; }
+        .progress-fill { width: 0%; height: 100%; background: var(--primary); transition: width 0.3s ease; }
+        .spinner { width: 50px; height: 50px; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 1rem auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Fullscreen Alert */
+        .fullscreen-alert { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center; }
+        .alert-box { background: var(--white); padding: 2rem; border-radius: var(--border-radius); text-align: center; max-width: 400px; }
+        
+        /* Notificações flutuantes */
+        .live-notification { position: fixed; bottom: 20px; right: 20px; background: var(--white); border-left: 4px solid var(--primary); padding: 1rem; border-radius: 12px; box-shadow: var(--box-shadow); z-index: 1100; min-width: 260px; animation: slideIn 0.3s ease forwards; display: flex; align-items: center; gap: 12px; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes fadeOut { to { opacity: 0; transform: translateX(100%); } }
+        .notification { background: var(--primary); color: white; padding: 0.8rem 1.2rem; border-radius: 12px; margin-bottom: 0.5rem; animation: fadeOut 5s forwards; font-size: 0.85rem; }
+        .notification.success { background: var(--success); }
+        .notification.error { background: var(--error); }
+        
+        /* Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1100; justify-content: center; align-items: center; }
+        .modal-content { background: var(--white); border-radius: var(--border-radius); width: 90%; max-width: 500px; padding: 1.5rem; }
+        
+        /* Chatbot Avançado */
+        .chatbot-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 1000; }
+        .chatbot-toggle { width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 25px rgba(255,127,0,0.4); color: white; font-size: 1.8rem; transition: var(--transition); }
+        .chatbot-toggle:hover { transform: scale(1.05) rotate(5deg); }
+        .chatbot-window { position: fixed; bottom: 90px; right: 20px; width: 380px; height: 550px; background: var(--white); border-radius: 24px; box-shadow: var(--box-shadow-lg); display: none; flex-direction: column; overflow: hidden; z-index: 1001; }
+        .chatbot-header { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; padding: 1rem; display: flex; justify-content: space-between; }
+        .chatbot-messages { flex: 1; overflow-y: auto; padding: 1rem; background: #f9fafb; }
+        .message { margin-bottom: 1rem; animation: messageSlide 0.3s ease; }
+        @keyframes messageSlide { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .message.bot { text-align: left; }
+        .message.user { text-align: right; }
+        .message-bubble { display: inline-block; max-width: 85%; padding: 0.7rem 1rem; border-radius: 18px; font-size: 0.85rem; }
+        .message.bot .message-bubble { background: var(--white); border: 1px solid #e5e7eb; }
+        .message.user .message-bubble { background: var(--primary); color: white; }
+        .typing-indicator { display: flex; gap: 4px; padding: 0.5rem 1rem; background: var(--white); border-radius: 18px; width: fit-content; border: 1px solid #e5e7eb; }
+        .typing-indicator span { width: 8px; height: 8px; background: var(--gray); border-radius: 50%; animation: typing 1.4s infinite ease-in-out; }
+        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+        .chatbot-input-area { display: flex; padding: 0.8rem; border-top: 1px solid #e5e7eb; background: white; }
+        .chatbot-input-area input { flex: 1; border: 1px solid #e5e7eb; border-radius: 30px; padding: 0.7rem 1rem; outline: none; transition: var(--transition); }
+        .chatbot-input-area input:focus { border-color: var(--primary); }
+        .chatbot-input-area button { background: var(--primary); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; margin-left: 0.5rem; cursor: pointer; transition: var(--transition); }
+        .chatbot-input-area button:hover { transform: scale(1.05); }
+        .suggested-questions { padding: 12px; border-top: 1px solid #e5e7eb; display: flex; flex-wrap: wrap; gap: 8px; }
+        .suggested-btn { background: #f1f3f5; border: none; padding: 6px 12px; border-radius: 30px; font-size: 0.75rem; cursor: pointer; color: var(--primary-dark); font-weight: 500; transition: var(--transition); }
+        .suggested-btn:hover { background: var(--primary); color: white; transform: translateY(-2px); }
+        
+        /* Footer */
+        footer { background: var(--dark); color: var(--white); padding: 3rem 2rem 1.5rem; margin-top: 2rem; }
+        .footer-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .copyright { text-align: center; padding-top: 2rem; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); }
+        
+        /* Animações */
+        .animated { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .animated.visible { opacity: 1; transform: translateY(0); }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .nav-toggle { display: block; }
+            nav ul { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--white); flex-direction: column; padding: 1rem; box-shadow: var(--box-shadow); }
+            nav ul.active { display: flex; }
+            .hero-container { grid-template-columns: 1fr; text-align: center; }
+            .hero h1 { font-size: 2rem; }
+            .hero-buttons { justify-content: center; }
+            .payment-methods { grid-template-columns: 1fr; }
+            .chatbot-window { width: 340px; right: 10px; height: 500px; }
+            .section-header h2 { font-size: 1.6rem; }
+            .summary-grid { grid-template-columns: 1fr; }
+            .features, .how-it-works, .registration, .statistics, .testimonials, .reviews-section, .trust-section, .faq-section { padding: 2rem 1rem; }
+        }
+        
+        @media (max-width: 480px) {
+            .header-container { padding: 0.8rem 1rem; }
+            .hero h1 { font-size: 1.6rem; }
+            .btn { padding: 0.7rem 1.4rem; font-size: 0.85rem; }
+            .form-container, .instruction-card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="fullScreenAlert" class="fullscreen-alert"><div class="alert-box"><i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--error); margin-bottom: 1rem;"></i><h2>Falha na confirmação</h2><p>Sua foto de comprovativo não pôde ser validada. Para prosseguir, efetue o pagamento da taxa e envie novamente.</p><button id="closeFullScreenAlert" class="btn btn-primary" style="margin-top: 1rem;">OK, entendi, vou pagar</button></div></div>
+<div id="loadingOverlay" class="loading-overlay"><div class="loading-content"><div class="spinner"></div><h3 id="loadingTitle">Processando...</h3><p id="loadingMessage">Aguarde um momento</p><div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div></div></div>
+
+<header><div class="header-container"><a href="#" class="logo"><span class="logo-icon">💰</span>Txene<span style="color: var(--secondary);">ca</span></a><button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button><nav><ul id="navMenu"><li><a href="#home">Início</a></li><li><a href="#como-funciona">Como Funciona</a></li><li><a href="#vantagens">Vantagens</a></li><li><a href="#solicitar">Solicitar</a></li><li><a href="#" id="loginBtn">Área do Cliente</a></li><li><button id="darkModeToggle" class="dark-mode-toggle"><i class="fas fa-moon"></i></button></li></ul></nav></div></header>
+
+<!-- Hero Section -->
+<section class="hero" id="home"><div class="hero-container"><div class="hero-content animated"><span class="hero-badge"><i class="fas fa-bolt"></i> Aprovação Rápida</span><h1>Empréstimos rápidos de até <span style="color: var(--primary);">300.000 MZN</span></h1><p>Com a Txeneca, você tem acesso a empréstimos de 5.000 a 300.000 MZN com aprovação rápida e condições transparentes.</p><div class="hero-buttons"><a href="#solicitar" class="btn btn-primary">Solicitar Agora <i class="fas fa-arrow-right"></i></a><a href="#" class="btn btn-outline" id="registerAccountBtn">Registar Conta</a></div><div class="stats-premium"><div class="stat-premium-item"><i class="fas fa-check-circle"></i> +4.382 empréstimos aprovados</div><div class="stat-premium-item"><i class="fas fa-smile"></i> 97% satisfação</div><div class="stat-premium-item"><i class="fas fa-map-marker-alt"></i> Atendimento Moçambique</div></div></div><div class="hero-image animated"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 400'%3E%3Crect fill='%23FF7F0015' width='500' height='400'/%3E%3Ccircle fill='%23FFD70030' cx='250' cy='200' r='120'/%3E%3Ctext x='250' y='220' text-anchor='middle' font-size='40' fill='%23FF7F00'%3E💰%3C/text%3E%3C/svg%3E" alt="Empréstimos" style="width:100%; max-width:400px;"></div></div></section>
+
+<!-- Simulador Premium -->
+<div class="simulator-premium animated"><h3 style="color:var(--primary); margin-bottom:1rem;"><i class="fas fa-calculator"></i> Simule seu empréstimo</h3><div class="form-group"><label>Valor pretendido (MZN)</label><input type="range" id="simAmount" min="5000" max="300000" step="1000" value="50000" style="width:100%"><span id="simAmountValue">50.000 MZN</span></div><div class="form-group"><label>Prazo (meses)</label><select id="simTerm"><option value="4">4 meses</option><option value="5">5 meses</option><option value="6" selected>6 meses</option><option value="7">7 meses</option><option value="8">8 meses</option><option value="9">9 meses</option><option value="10">10 meses</option><option value="11">11 meses</option><option value="12">12 meses</option></select></div><div class="calculator-results"><div class="result-item"><span>Parcela mensal:</span><span id="simInstallment">0 MZN</span></div><div class="result-item"><span>Juros (7%):</span><span id="simInterest">0 MZN</span></div><div class="result-item total"><span>Total a pagar:</span><span id="simTotal">0 MZN</span></div></div></div>
+
+<!-- Features -->
+<section class="features" id="vantagens"><div class="section-header"><h2>Por que escolher a Txeneca?</h2><p>Oferecemos as melhores condições para o seu empréstimo</p></div><div class="features-grid"><div class="feature-card animated"><div class="feature-icon"><i class="fas fa-bolt"></i></div><h3>Processo Rápido</h3><p>Pedido analisado em até 24 horas após pagamento da taxa.</p></div><div class="feature-card animated"><div class="feature-icon"><i class="fas fa-shield-alt"></i></div><h3>Segurança Garantida</h3><p>Seus dados estão protegidos com segurança máxima.</p></div><div class="feature-card animated"><div class="feature-icon"><i class="fas fa-hand-holding-usd"></i></div><h3>Taxas Transparentes</h3><p>Sem taxas ocultas. Tudo claro desde o início.</p></div></div></section>
+
+<!-- How It Works -->
+<section class="how-it-works" id="como-funciona"><div class="section-header"><h2>Como Funciona</h2><p>Obtenha seu empréstimo em 5 passos simples</p></div><div class="steps"><div class="step animated"><div class="step-number">1</div><i class="fas fa-user-plus feature-icon"></i><h3>Crie sua conta</h3><p>Registe-se com email ou telefone.</p></div><div class="step animated"><div class="step-number">2</div><i class="fas fa-id-card feature-icon"></i><h3>Envie documentos</h3><p>Upload do seu BI (frente e verso).</p></div><div class="step animated"><div class="step-number">3</div><i class="fas fa-money-bill-wave feature-icon"></i><h3>Selecione o valor</h3><p>Entre 5.000 e 300.000 MZN.</p></div><div class="step animated"><div class="step-number">4</div><i class="fas fa-mobile-alt feature-icon"></i><h3>Escolha o método</h3><p>E-Mola, M-Pesa ou Visa.</p></div><div class="step animated"><div class="step-number">5</div><i class="fas fa-check-circle feature-icon"></i><h3>Pague e aguarde</h3><p>Pague a taxa e aguarde análise.</p></div></div></section>
+
+<!-- Trust & Security Section -->
+<section class="trust-section"><div class="section-header"><h2>Segurança e Confiança</h2><p>Plataforma 100% protegida</p></div><div class="trust-grid"><div class="trust-card"><i class="fas fa-lock" style="font-size:2rem;color:var(--primary)"></i><h3>Dados Protegidos</h3><p>Criptografia avançada SSL</p></div><div class="trust-card"><i class="fas fa-shield-alt" style="font-size:2rem;color:var(--primary)"></i><h3>Processo Seguro</h3><p>Verificação antifraude</p></div><div class="trust-card"><i class="fas fa-clock" style="font-size:2rem;color:var(--primary)"></i><h3>Aprovação Rápida</h3><p>Até 24h após taxa</p></div><div class="trust-card"><i class="fas fa-certificate" style="font-size:2rem;color:var(--primary)"></i><h3>Verificado</h3><p>Plataforma regulada</p></div></div></section>
+
+<!-- FAQ Section -->
+<section class="faq-section"><div class="section-header"><h2>Perguntas Frequentes</h2></div><div class="faq-list"><div class="faq-item"><div class="faq-question">Quanto tempo demora para receber? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">A demora para o recebimento do valor do empréstimo solicitado varia entre 8 minutos até no máximo 30 minutos após a aprovação.</div></div><div class="faq-item"><div class="faq-question">Quais documentos são necessários? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Bilhete de identidade (frente e verso), comprovativo de residência e formulário preenchido.</div></div><div class="faq-item"><div class="faq-question">Como funciona a análise de crédito? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Analisamos seus dados e histórico, a taxa de inscrição cobre esse processo administrativo.</div></div><div class="faq-item"><div class="faq-question">Posso pagar antecipadamente? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Sim, com desconto proporcional dos juros. Consulte nosso suporte.</div></div></div><div style="background: rgba(255,127,0,0.1); padding:1rem; border-radius: 16px; margin-top:2rem; text-align:center; max-width:800px; margin-left:auto; margin-right:auto;"><i class="fas fa-shield-alt"></i> <strong>Aviso anti-fraude:</strong> A TXENECA nunca pede pagamentos fora dos canais oficiais. Desconfie de terceiros.</div></section>
+
+<!-- Registration Form -->
+<section class="registration" id="solicitar"><div class="section-header"><h2>Solicite Seu Empréstimo</h2><p>Preencha o formulário abaixo</p></div><div class="form-container animated" id="formContainer"><form id="loanForm"><h3 style="margin-bottom:1rem;">Informações Pessoais</h3><div class="form-group"><input type="text" id="fullName" placeholder="Nome Completo" required></div><div class="form-group"><input type="text" id="emailPhone" placeholder="Email ou Telefone" required></div><div class="form-group"><input type="password" id="password" placeholder="Senha" required></div><div class="form-group"><input type="password" id="confirmPassword" placeholder="Confirmar Senha" required></div><h3 style="margin:1.5rem 0 1rem;">Documentação Obrigatória (BI)</h3><div class="form-group"><input type="text" id="biNumber" placeholder="Número do BI" required></div><div class="form-group"><label>Foto da Frente do BI</label><input type="file" id="biFront" accept="image/*" required><div id="biFrontPreview" class="image-preview"></div></div><div class="form-group"><label>Foto do Verso do BI</label><input type="file" id="biBack" accept="image/*" required><div id="biBackPreview" class="image-preview"></div></div><h3 style="margin:1.5rem 0 1rem;">Método de Recebimento</h3><div class="payment-methods"><div class="payment-method"><input type="radio" name="paymentMethod" value="emola" id="emola"><label for="emola"><i class="fas fa-mobile-alt"></i><span>E-Mola</span></label></div><div class="payment-method"><input type="radio" name="paymentMethod" value="mpesa" id="mpesa"><label for="mpesa"><i class="fas fa-wallet"></i><span>M-Pesa</span></label></div><div class="payment-method"><input type="radio" name="paymentMethod" value="visa" id="visa"><label for="visa"><i class="fas fa-credit-card"></i><span>Visa</span></label></div></div><div class="form-group"><label>Número para receber o valor (M-Pesa/E-Mola ou IBAN)</label><input type="text" id="receiverNumber" placeholder="Ex: 84 123 4567 ou conta bancária" required></div>
+<div class="form-group"><label>Nome de Confirmação</label><input type="text" id="confirmName" placeholder="Nome associado ao número de pagamento" required></div>
+<div class="loan-calculator"><h3>Calculadora (juros fixo 7%)</h3><div class="form-group"><label>Valor: <span id="loanAmountValue">50.000 MZN</span></label><input type="range" id="loanAmount" min="5000" max="300000" step="1000" value="50000" style="width:100%"></div><div class="form-group"><label>Prazo (Meses)</label><select id="loanTerm"><option value="4">4 Meses</option><option value="5">5 Meses</option><option value="6" selected>6 Meses</option><option value="7">7 Meses</option><option value="8">8 Meses</option><option value="9">9 Meses</option><option value="10">10 Meses</option><option value="11">11 Meses</option><option value="12">12 Meses</option></select></div><div class="calculator-results"><div class="result-item"><span>Valor Solicitado:</span><span id="requestedAmount">50.000 MZN</span></div><div class="result-item"><span>Juros (7%):</span><span id="interestAmount">3.500 MZN</span></div><div class="result-item"><span>Total a Pagar:</span><span id="totalToPay">53.500 MZN</span></div><div class="result-item total"><span>Prestação Mensal:</span><span id="monthlyPayment">8.917 MZN</span></div></div></div><div style="background:#f0f0f0; padding:1rem; border-radius:12px; margin:1rem 0;"><span>Taxa de Inscrição: <strong id="registrationFee">1.299 MZN</strong></span></div><div class="form-group"><input type="checkbox" id="terms"> <label for="terms" style="display:inline">Aceito os Termos e Condições</label></div><button type="submit" class="btn btn-primary" style="width:100%">Continuar para Pagamento</button></form></div><div class="payment-instructions" id="paymentInstructions" style="display: none;"><div class="instruction-card"><button id="backToFormBtn" class="btn btn-secondary" style="margin-bottom:1rem">← Voltar</button><div id="loanSummaryPremium" class="loan-summary-premium"></div><h3>Pagamento da Taxa de Inscrição</h3><div class="payment-details" id="paymentDetails"></div><form id="paymentProofForm"><div class="form-group"><label>Comprovativo de Pagamento</label><input type="file" id="paymentProof" accept="image/*" required><div id="paymentProofPreview" class="image-preview"></div></div><button type="submit" class="btn btn-primary" style="width:100%">Enviar Comprovativo</button></form></div></div></section>
+
+<!-- Testimonials -->
+<section class="testimonials"><div class="section-header"><h2>O que nossos clientes dizem</h2><p>Experiências reais</p></div><div class="testimonials-container" id="testimonialsContainer"></div></section>
+
+<!-- Reviews -->
+<section class="reviews-section"><div class="section-header"><h2>Avaliações dos Clientes</h2><p>Compartilhe sua experiência</p></div><div class="reviews-grid" id="reviewsGrid"></div><div class="review-form"><input type="text" id="reviewName" placeholder="Seu nome" style="width:100%; padding:0.8rem; margin-bottom:1rem; border-radius:12px; border:1px solid #ddd;"><textarea id="reviewText" placeholder="Escreva seu comentário..." rows="3" style="width:100%; padding:0.8rem; border-radius:12px; border:1px solid #ddd;"></textarea><div class="star-rating" id="starRating"><i class="far fa-star" data-value="1"></i><i class="far fa-star" data-value="2"></i><i class="far fa-star" data-value="3"></i><i class="far fa-star" data-value="4"></i><i class="far fa-star" data-value="5"></i></div><button id="submitReviewBtn" class="btn btn-primary" style="width:100%; margin-top:1rem;">Publicar Comentário</button></div></section>
+
+<!-- Statistics -->
+<section class="statistics"><div class="section-header"><h2>Nossos Números</h2><p>Confiabilidade comprovada</p></div><div class="stats-grid"><div class="stat-card"><i class="fas fa-users" style="font-size:2rem; color:var(--primary)"></i><div class="stat-number" data-count="15000">0</div><div>Clientes Satisfeitos</div></div><div class="stat-card"><i class="fas fa-hand-holding-usd" style="font-size:2rem; color:var(--primary)"></i><div class="stat-number" data-count="85000000">0</div><div>Empréstimos Concedidos (MZN)</div></div><div class="stat-card"><i class="fas fa-clock" style="font-size:2rem; color:var(--primary)"></i><div class="stat-number" data-count="24">0</div><div>Horas para Aprovação</div></div><div class="stat-card"><i class="fas fa-percentage" style="font-size:2rem; color:var(--primary)"></i><div class="stat-number" data-count="98.5">0</div><div>Taxa de Satisfação</div></div></div></section>
+
+<footer><div class="footer-container"><div><div class="logo" style="margin-bottom:1rem"><span class="logo-icon">💰</span>Txeneca</div><p>Soluções financeiras rápidas e confiáveis.</p></div><div><h3>Links Rápidos</h3><ul style="list-style:none"><li><a href="#home" style="color:white">Início</a></li><li><a href="#solicitar" style="color:white">Solicitar</a></li></ul></div><div><h3>Contactos</h3><p>info@txeneca.co.mz</p><p>+258 84 123 4567</p></div></div><div class="copyright">&copy; 2025 Txeneca. Todos os direitos reservados.</div></footer>
+
+<!-- Chatbot (WhatsApp removido) -->
+<div class="chatbot-container"><div class="chatbot-toggle" id="chatbotToggle"><i class="fas fa-comment-dots"></i></div><div class="chatbot-window" id="chatbotWindow"><div class="chatbot-header"><span><i class="fas fa-robot"></i> Assistente Txeneca</span><button id="closeChatbot" style="background:none; border:none; color:white; font-size:1.2rem; cursor:pointer;">&times;</button></div><div class="chatbot-messages" id="chatMessages"><div class="message bot"><div class="message-bubble">Olá! 👋 Como posso ajudar? Pergunte sobre prazos, taxas ou pagamento.</div></div></div><div class="suggested-questions" id="suggestedQuestions"></div><div class="chatbot-input-area"><input type="text" id="chatInput" placeholder="Digite sua pergunta..." autocomplete="off"><button id="sendChatBtn"><i class="fas fa-paper-plane"></i></button></div></div></div>
+
+<div id="notificationsContainer" style="position:fixed; bottom:80px; right:20px; z-index:1000;"></div>
+<div class="modal" id="loginModal"><div class="modal-content"><h3>Área do Cliente</h3><form id="loginForm"><input type="text" id="loginEmail" placeholder="Email/Telefone" style="width:100%; margin-bottom:1rem; padding:0.8rem"><input type="password" id="loginPassword" placeholder="Senha" style="width:100%; margin-bottom:1rem; padding:0.8rem"><button type="submit" class="btn btn-primary" style="width:100%">Entrar</button></form></div></div>
+<div class="modal" id="clientPanelModal"><div class="modal-content"><span class="close-modal" style="float:right; cursor:pointer; font-size:1.5rem;">&times;</span><h3>Meu Painel Txeneca</h3><div id="clientPanelContent"><p>Status: Aguardando solicitação</p><p>Nenhum pedido em andamento.</p><button class="btn btn-primary" id="solicitarFromPanel">Solicitar Agora</button></div></div></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const PAYMENT_NUMBER = "876364927";
+    const PAYMENT_NAME = "TIOFELO EDSON LUIS JAIELA";
+    
+    // Simulator
+    const simAmount = document.getElementById('simAmount');
+    const simTerm = document.getElementById('simTerm');
+    function updateSim() {
+        let amt = parseInt(simAmount.value);
+        let term = parseInt(simTerm.value);
+        let interest = amt * 0.07;
+        let total = amt + interest;
+        let installment = total / term;
+        document.getElementById('simAmountValue').innerText = amt.toLocaleString('pt-MZ') + ' MZN';
+        document.getElementById('simInstallment').innerText = Math.round(installment).toLocaleString('pt-MZ') + ' MZN';
+        document.getElementById('simInterest').innerText = Math.round(interest).toLocaleString('pt-MZ') + ' MZN';
+        document.getElementById('simTotal').innerText = Math.round(total).toLocaleString('pt-MZ') + ' MZN';
+    }
+    if(simAmount) simAmount.addEventListener('input', updateSim);
+    if(simTerm) simTerm.addEventListener('change', updateSim);
+    updateSim();
+    
+    // Floating notifications
+    const msgs = ["João de Maputo recebeu 25.000 MZN ✅", "Maria de Gaza teve empréstimo aprovado 🚀", "Carlos da Beira recebeu 15.000 MZN 💰", "Ana de Nampula aprovada 40.000 MZN", "Pedro de Quelimane recebeu 12.000 MZN"];
+    setInterval(() => {
+        const randomMsg = msgs[Math.floor(Math.random() * msgs.length)];
+        const container = document.getElementById('notificationsContainer');
+        if(container) {
+            const notif = document.createElement('div');
+            notif.className = 'live-notification';
+            notif.innerHTML = `<i class="fas fa-bell" style="color:var(--primary)"></i> <span>${randomMsg}</span>`;
+            container.appendChild(notif);
+            setTimeout(() => { notif.style.animation = 'fadeOut 0.5s forwards'; setTimeout(() => notif.remove(), 500); }, 5000);
+        }
+    }, 20000);
+    
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', () => q.parentElement.classList.toggle('active'));
+    });
+    
+    // Dark Mode
+    const darkToggle = document.getElementById('darkModeToggle');
+    if(localStorage.getItem('dark') === 'true') document.body.classList.add('dark-mode');
+    darkToggle?.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('dark', document.body.classList.contains('dark-mode'));
+    });
+    
+    // Loan form logic
+    function calcFee(amount) {
+        if(amount <= 8999) return 514; if(amount <= 12999) return 699; if(amount <= 16999) return 799;
+        if(amount <= 21999) return 899; if(amount <= 29999) return 999; if(amount <= 40999) return 1299;
+        if(amount <= 60999) return 1499; if(amount <= 90999) return 1799; if(amount <= 139999) return 2099;
+        if(amount <= 199999) return 2499; if(amount <= 259999) return 2799; return 3099;
+    }
+    const loanSlider = document.getElementById('loanAmount');
+    const loanTerm = document.getElementById('loanTerm');
+    function updateLoanCalc() {
+        let amount = parseInt(loanSlider?.value || 50000);
+        let term = parseInt(loanTerm?.value || 6);
+        let interest = amount * 0.07;
+        let total = amount + interest;
+        let monthly = total / term;
+        const amountValueSpan = document.getElementById('loanAmountValue');
+        const requestedSpan = document.getElementById('requestedAmount');
+        const interestSpan = document.getElementById('interestAmount');
+        const totalSpan = document.getElementById('totalToPay');
+        const monthlySpan = document.getElementById('monthlyPayment');
+        const feeSpan = document.getElementById('registrationFee');
+        if(amountValueSpan) amountValueSpan.innerHTML = amount.toLocaleString('pt-MZ') + ' MZN';
+        if(requestedSpan) requestedSpan.innerHTML = amount.toLocaleString('pt-MZ') + ' MZN';
+        if(interestSpan) interestSpan.innerHTML = Math.round(interest).toLocaleString('pt-MZ') + ' MZN';
+        if(totalSpan) totalSpan.innerHTML = Math.round(total).toLocaleString('pt-MZ') + ' MZN';
+        if(monthlySpan) monthlySpan.innerHTML = Math.round(monthly).toLocaleString('pt-MZ') + ' MZN';
+        if(feeSpan) feeSpan.innerHTML = calcFee(amount).toLocaleString('pt-MZ') + ' MZN';
+    }
+    if(loanSlider) loanSlider.addEventListener('input', updateLoanCalc);
+    if(loanTerm) loanTerm.addEventListener('change', updateLoanCalc);
+    updateLoanCalc();
+    
+    function previewImage(input, container) { 
+        if(input && input.files && input.files[0]) { 
+            let reader = new FileReader(); 
+            reader.onload = e => { if(container) container.innerHTML = `<img src="${e.target.result}" class="preview-item" />`; }; 
+            reader.readAsDataURL(input.files[0]); 
+        } 
+    }
+    const biFront = document.getElementById('biFront');
+    const biBack = document.getElementById('biBack');
+    const paymentProof = document.getElementById('paymentProof');
+    if(biFront) biFront.addEventListener('change', function(){ previewImage(this, document.getElementById('biFrontPreview')); });
+    if(biBack) biBack.addEventListener('change', function(){ previewImage(this, document.getElementById('biBackPreview')); });
+    if(paymentProof) paymentProof.addEventListener('change', function(){ previewImage(this, document.getElementById('paymentProofPreview')); });
+    
+    function showNotif(msg, type) { 
+        let container = document.getElementById('notificationsContainer'); 
+        if(container) {
+            let n = document.createElement('div'); 
+            n.className = `notification ${type}`; 
+            n.textContent = msg; 
+            container.appendChild(n); 
+            setTimeout(() => n.remove(), 5000);
+        }
+    }
+    window.showNotification = showNotif;
+    
+    const formContainer = document.getElementById('formContainer');
+    const paymentInstructions = document.getElementById('paymentInstructions');
+    const loanForm = document.getElementById('loanForm');
+    
+    if(loanForm) {
+        loanForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const biFrontFile = document.getElementById('biFront')?.files[0];
+            const biBackFile = document.getElementById('biBack')?.files[0];
+            if(!biFrontFile || !biBackFile) { showNotif('Envie frente e verso do BI', 'error'); return; }
+            let amount = parseInt(loanSlider?.value || 50000);
+            let fee = calcFee(amount);
+            let receiverNumber = document.getElementById('receiverNumber')?.value;
+            let confirmName = document.getElementById('confirmName')?.value;
+            let fullName = document.getElementById('fullName')?.value || '';
+            let emailPhone = document.getElementById('emailPhone')?.value || '';
+            
+            if(!receiverNumber) { showNotif('Informe número para recebimento', 'error'); return; }
+            if(!confirmName) { showNotif('Informe o Nome de Confirmação', 'error'); return; }
+            
+            const summaryDiv = document.getElementById('loanSummaryPremium');
+            if(summaryDiv) {
+                summaryDiv.innerHTML = `
+                    <h4><i class="fas fa-file-invoice"></i> Resumo do Empréstimo</h4>
+                    <div class="summary-grid">
+                        <div class="summary-item"><span>Número do Cliente:</span><strong>${emailPhone || fullName || 'N/A'}</strong></div>
+                        <div class="summary-item"><span>Nome de Confirmação:</span><strong>${confirmName}</strong></div>
+                        <div class="summary-item"><span>Valor Solicitado:</span><strong>${amount.toLocaleString('pt-MZ')} MZN</strong></div>
+                        <div class="summary-item"><span>Prazo:</span><strong>${loanTerm?.value || 6} meses</strong></div>
+                        <div class="summary-item"><span>Taxa de Inscrição:</span><strong>${fee.toLocaleString('pt-MZ')} MZN</strong></div>
+                        <div class="summary-item highlight"><span>Total a Pagar (empréstimo):</span><strong>${Math.round(amount + (amount * 0.07)).toLocaleString('pt-MZ')} MZN</strong></div>
+                    </div>
+                `;
+            }
+            const paymentDetails = document.getElementById('paymentDetails');
+            if(paymentDetails) {
+                paymentDetails.innerHTML = `
+                    <div class="result-item"><span>Valor da Taxa:</span><span>${fee.toLocaleString('pt-MZ')} MZN</span></div>
+                    <div class="result-item"><span>Número:</span><span><strong>${PAYMENT_NUMBER}</strong> <button class="copy-btn" data-text="${PAYMENT_NUMBER}" style="background:var(--primary);color:white;border:none;padding:0.2rem 0.8rem;border-radius:20px;cursor:pointer;">Copiar</button></span></div>
+                    <div class="result-item"><span>Nome:</span><span><strong>${PAYMENT_NAME}</strong></span></div>
+                `;
+                document.querySelectorAll('.copy-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        navigator.clipboard.writeText(btn.getAttribute('data-text'));
+                        showNotif('Número copiado!', 'success');
+                    });
+                });
+            }
+            if(formContainer) formContainer.style.display = 'none';
+            if(paymentInstructions) paymentInstructions.style.display = 'block';
+            
+            // Scroll suave para a seção de pagamento
+            setTimeout(() => {
+                paymentInstructions?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        });
+    }
+    
+    const backBtn = document.getElementById('backToFormBtn');
+    if(backBtn) {
+        backBtn.addEventListener('click', () => { 
+            if(formContainer) formContainer.style.display = 'block'; 
+            if(paymentInstructions) paymentInstructions.style.display = 'none'; 
+        });
+    }
+    
+    const paymentProofForm = document.getElementById('paymentProofForm');
+    if(paymentProofForm) {
+        paymentProofForm.addEventListener('submit', (e) => { 
+            e.preventDefault(); 
+            const proofFile = document.getElementById('paymentProof')?.files[0];
+            if(!proofFile) { showNotif('Selecione o comprovativo', 'error'); return; } 
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            if(loadingOverlay) loadingOverlay.style.display = 'flex'; 
+            setTimeout(() => { 
+                if(loadingOverlay) loadingOverlay.style.display = 'none'; 
+                const fullScreenAlert = document.getElementById('fullScreenAlert');
+                if(fullScreenAlert) fullScreenAlert.style.display = 'flex'; 
+            }, 25000); 
+        });
+    }
+    
+    const closeAlert = document.getElementById('closeFullScreenAlert');
+    if(closeAlert) {
+        closeAlert.addEventListener('click', () => { 
+            const fullScreenAlert = document.getElementById('fullScreenAlert');
+            if(fullScreenAlert) fullScreenAlert.style.display = 'none'; 
+        });
+    }
+    
+    // Chatbot Avançado com delay de 15 segundos
+    const chatbotToggle = document.getElementById('chatbotToggle');
+    const chatbotWindow = document.getElementById('chatbotWindow');
+    const closeChatbot = document.getElementById('closeChatbot');
+    const chatInput = document.getElementById('chatInput');
+    const sendChatBtn = document.getElementById('sendChatBtn');
+    const chatMessages = document.getElementById('chatMessages');
+    const suggestedQuestions = document.getElementById('suggestedQuestions');
+    
+    const faqAnswers = {
+        "como funciona o empréstimo": "O processo é simples: preencha o formulário, envie seus documentos, pague a taxa de inscrição e aguarde a análise. Após aprovação, o valor cai na sua conta em até 30 minutos.",
+        "quanto tempo demora": "A aprovação leva até 24 horas após o pagamento da taxa. O recebimento do valor ocorre entre 8 a 30 minutos após a aprovação.",
+        "quais documentos preciso": "Você precisa do Bilhete de Identidade (frente e verso), comprovativo de residência e preencher o formulário completo.",
+        "como pagar a taxa": "A taxa de inscrição é paga via transferência para o número 876364927 em nome de TIOFELO EDSON LUIS JAIELA. O valor varia conforme o montante solicitado.",
+        "quando recebo o dinheiro": "Após aprovação, o dinheiro é enviado ao seu número M-Pesa, E-Mola ou conta bancária em até 30 minutos.",
+        "qual o valor máximo": "O valor máximo do empréstimo é de 300.000 MZN.",
+        "taxa de juros": "A taxa de juros é fixa de 7% sobre o valor solicitado.",
+        "posso pagar antecipadamente": "Sim, com desconto proporcional dos juros. Entre em contato com nosso suporte."
+    };
+    
+    const suggestedQuestionsList = [
+        "Como funciona o empréstimo?",
+        "Quanto tempo demora?",
+        "Quais documentos preciso?",
+        "Como pagar a taxa?",
+        "Quando recebo o dinheiro?"
+    ];
+    
+    if(suggestedQuestions) {
+        suggestedQuestionsList.forEach(q => {
+            const btn = document.createElement('button');
+            btn.className = 'suggested-btn';
+            btn.textContent = q;
+            btn.addEventListener('click', () => {
+                if(chatInput) chatInput.value = q;
+                sendChatMessage(q);
+            });
+            suggestedQuestions.appendChild(btn);
+        });
+    }
+    
+    function addTypingIndicator() {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'message bot typing-message';
+        typingDiv.innerHTML = `<div class="typing-indicator"><span></span><span></span><span></span><span style="margin-left:8px;font-size:12px;">Processando resposta...</span></div>`;
+        if(chatMessages) chatMessages.appendChild(typingDiv);
+        chatMessages?.scrollTo({ top: chatMessages.scrollHeight, behavior: 'smooth' });
+        return typingDiv;
+    }
+    
+    function removeTypingIndicator(typingDiv) {
+        if(typingDiv && typingDiv.remove) typingDiv.remove();
+    }
+    
+    function addMessage(text, isUser) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+        messageDiv.innerHTML = `<div class="message-bubble">${text}</div>`;
+        if(chatMessages) chatMessages.appendChild(messageDiv);
+        chatMessages?.scrollTo({ top: chatMessages.scrollHeight, behavior: 'smooth' });
+    }
+    
+    async function sendChatMessage(question) {
+        if(!question.trim()) return;
+        addMessage(question, true);
+        if(chatInput) chatInput.value = '';
+        
+        const typingDiv = addTypingIndicator();
+        
+        // Simular processamento de 15 segundos
+        await new Promise(resolve => setTimeout(resolve, 15000));
+        
+        removeTypingIndicator(typingDiv);
+        
+        const lowerQuestion = question.toLowerCase();
+        let answer = "Desculpe, não entendi sua pergunta. Por favor, tente perguntar de outra forma ou contacte nosso suporte.";
+        
+        for(const [key, value] of Object.entries(faqAnswers)) {
+            if(lowerQuestion.includes(key)) {
+                answer = value;
+                break;
+            }
+        }
+        
+        addMessage(answer, false);
+    }
+    
+    if(chatbotToggle) {
+        chatbotToggle.addEventListener('click', () => { 
+            if(chatbotWindow) chatbotWindow.style.display = chatbotWindow.style.display === 'flex' ? 'none' : 'flex'; 
+        });
+    }
+    if(closeChatbot) {
+        closeChatbot.addEventListener('click', () => { if(chatbotWindow) chatbotWindow.style.display = 'none'; });
+    }
+    if(sendChatBtn) {
+        sendChatBtn.addEventListener('click', () => { if(chatInput) sendChatMessage(chatInput.value); });
+    }
+    if(chatInput) {
+        chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendChatMessage(chatInput.value); });
+    }
+    
+    // Reviews
+    let reviews = JSON.parse(localStorage.getItem('txeneca_reviews')) || [];
+    function renderReviews() {
+        const grid = document.getElementById('reviewsGrid');
+        if(grid) { 
+            grid.innerHTML = reviews.slice().reverse().map(r => `<div class="review-card"><div class="review-stars">${'<i class="fas fa-star" style="color:#FFD700"></i>'.repeat(r.rating)}${'<i class="far fa-star"></i>'.repeat(5-r.rating)}</div><p>${r.text}</p><div class="review-author">— ${r.name}</div></div>`).join('') || '<p>Seja o primeiro a avaliar!</p>'; 
+        }
+    }
+    let selectedRating = 0;
+    document.querySelectorAll('#starRating i').forEach(star => { 
+        star.addEventListener('click', function() { 
+            selectedRating = parseInt(this.dataset.value); 
+            document.querySelectorAll('#starRating i').forEach((s,i) => { 
+                if(i < selectedRating) s.className = 'fas fa-star active'; 
+                else s.className = 'far fa-star'; 
+            }); 
+        }); 
+    });
+    const submitReviewBtn = document.getElementById('submitReviewBtn');
+    if(submitReviewBtn) {
+        submitReviewBtn.addEventListener('click', () => { 
+            let name = document.getElementById('reviewName')?.value.trim(); 
+            let text = document.getElementById('reviewText')?.value.trim(); 
+            if(!name || !text || !selectedRating) { showNotif('Preencha nome, comentário e estrelas', 'error'); return; } 
+            reviews.push({name, text, rating: selectedRating}); 
+            localStorage.setItem('txeneca_reviews', JSON.stringify(reviews)); 
+            renderReviews(); 
+            if(document.getElementById('reviewName')) document.getElementById('reviewName').value = ''; 
+            if(document.getElementById('reviewText')) document.getElementById('reviewText').value = ''; 
+            selectedRating = 0; 
+            document.querySelectorAll('#starRating i').forEach(s => s.className = 'far fa-star'); 
+            showNotif('Avaliação publicada!', 'success'); 
+        });
+    }
+    renderReviews();
+    
+    // Testimonials
+    const testimonialData = [{text:"Recebi 150.000 MZN via M-Pesa no mesmo dia!", author:"João, Beira"},{text:"Processo simples e taxas transparentes.", author:"Maria, Maputo"},{text:"Melhor plataforma de empréstimos!", author:"Carlos, Tete"}];
+    const testimonialsContainer = document.getElementById('testimonialsContainer');
+    if(testimonialsContainer) {
+        testimonialsContainer.style.display = 'grid';
+        testimonialsContainer.style.gridTemplateColumns = 'repeat(auto-fit, minmax(280px, 1fr))';
+        testimonialsContainer.style.gap = '2rem';
+        testimonialsContainer.style.maxWidth = '1400px';
+        testimonialsContainer.style.margin = '0 auto';
+        testimonialData.forEach(t => { 
+            testimonialsContainer.innerHTML += `<div class="testimonial" style="background:var(--white); border-radius:var(--border-radius); padding:1.5rem; box-shadow:var(--box-shadow);"><p style="margin-bottom:1rem;">"${t.text}"</p><div style="font-weight:600; color:var(--primary)">- ${t.author}</div></div>`; 
+        });
+    }
+    
+    // Login Panel
+    const loginModal = document.getElementById('loginModal');
+    const clientPanelModal = document.getElementById('clientPanelModal');
+    const loginBtn = document.getElementById('loginBtn');
+    if(loginBtn) {
+        loginBtn.addEventListener('click', (e) => { e.preventDefault(); if(loginModal) loginModal.style.display = 'flex'; });
+    }
+    const loginForm = document.getElementById('loginForm');
+    if(loginForm) {
+        loginForm.addEventListener('submit', (e) => { e.preventDefault(); if(loginModal) loginModal.style.display = 'none'; if(clientPanelModal) clientPanelModal.style.display = 'flex'; });
+    }
+    const solicitarFromPanel = document.getElementById('solicitarFromPanel');
+    if(solicitarFromPanel) {
+        solicitarFromPanel.addEventListener('click', () => {
+            if(clientPanelModal) clientPanelModal.style.display = 'none';
+            const solicitSection = document.getElementById('solicitar');
+            if(solicitSection) solicitSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+    
+    // Botão Registar Conta
+    const registerAccountBtn = document.getElementById('registerAccountBtn');
+    if(registerAccountBtn) {
+        registerAccountBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const solicitSection = document.getElementById('solicitar');
+            if(solicitSection) solicitSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+    
+    // Fechar modais
+    document.querySelectorAll('.close-modal, .modal').forEach(el => { 
+        el.addEventListener('click', (e) => { 
+            if(e.target.classList.contains('modal') || e.target.classList.contains('close-modal')) { 
+                if(loginModal) loginModal.style.display = 'none'; 
+                if(clientPanelModal) clientPanelModal.style.display = 'none'; 
+            } 
+        }); 
+    });
+    
+    // Nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    if(navToggle) {
+        navToggle.addEventListener('click', () => { navMenu?.classList.toggle('active'); });
+    }
+    
+    // Animated scroll
+    const animated = document.querySelectorAll('.animated');
+    const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+    animated.forEach(el => observer.observe(el));
+    
+    // Counter stats
+    const statNumbers = document.querySelectorAll('.stat-number');
+    const statObserver = new IntersectionObserver((entries) => { 
+        entries.forEach(entry => { 
+            if(entry.isIntersecting) { 
+                const el = entry.target; 
+                const target = parseFloat(el.dataset.count); 
+                let current = 0; 
+                const increment = target / 50; 
+                const timer = setInterval(() => { 
+                    current += increment; 
+                    if(current >= target) { current = target; clearInterval(timer); } 
+                    if(target > 1000000) el.textContent = (current/1000000).toFixed(1) + 'M'; 
+                    else if(target > 1000) el.textContent = Math.floor(current/1000) + 'K'; 
+                    else if(target.toString().includes('.')) el.textContent = current.toFixed(1) + '%'; 
+                    else el.textContent = Math.floor(current); 
+                }, 30); 
+                statObserver.unobserve(el); 
+            } 
+        }); 
+    }, { threshold: 0.3 });
+    statNumbers.forEach(el => statObserver.observe(el));
+});
+</script>
+</body>
+</html>

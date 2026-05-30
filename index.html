@@ -79,6 +79,8 @@
         .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(255,127,0,0.4); }
         .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); transition: var(--transition); }
         .btn-outline:hover { background: var(--primary); color: white; transform: translateY(-3px); }
+        .btn-success { background: linear-gradient(105deg, var(--success), #059669); color: white; }
+        .btn-success:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(16,185,129,0.4); }
         
         /* Hero Premium */
         .hero { background: linear-gradient(135deg, rgba(255,127,0,0.05), rgba(255,215,0,0.05)); padding: 4rem 2rem; position: relative; overflow: hidden; }
@@ -91,6 +93,179 @@
         .stat-premium-item { background: rgba(255,255,255,0.6); backdrop-filter: blur(5px); padding: 0.6rem 1.2rem; border-radius: 40px; font-weight: 600; font-size: 0.85rem; transition: var(--transition); }
         .stat-premium-item:hover { transform: translateY(-2px); background: rgba(255,127,0,0.1); }
         body.dark-mode .stat-premium-item { background: rgba(0,0,0,0.3); }
+        
+        /* Cartão de Estado da Conta */
+        .account-status-card {
+            background: linear-gradient(135deg, var(--white) 0%, var(--white) 100%);
+            border-radius: var(--border-radius);
+            padding: 1.8rem;
+            box-shadow: var(--box-shadow-lg);
+            border: 1px solid rgba(255,127,0,0.2);
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+        .account-status-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 45px -12px rgba(0,0,0,0.25);
+        }
+        .status-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(255,127,0,0.2);
+        }
+        .status-header i {
+            font-size: 2rem;
+            color: var(--primary);
+            background: rgba(255,127,0,0.1);
+            padding: 10px;
+            border-radius: 50%;
+        }
+        .status-header h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        .debt-info {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .debt-amount {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--success);
+            margin: 0.5rem 0;
+        }
+        .debt-status {
+            display: inline-block;
+            background: rgba(16,185,129,0.15);
+            color: var(--success);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .limit-info {
+            background: rgba(255,127,0,0.08);
+            border-radius: var(--border-radius-sm);
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        .limit-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        .limit-label {
+            color: var(--gray);
+            font-weight: 500;
+        }
+        .limit-value {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        /* Financial Analysis Section */
+        .financial-analysis {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        .financial-analysis h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        .eligibility-progress {
+            background: var(--gray-light);
+            border-radius: 12px;
+            height: 12px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+        .eligibility-progress-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.5s ease;
+            border-radius: 12px;
+        }
+        .progress-percent {
+            text-align: center;
+            margin-top: 0.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .question-group {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255,127,0,0.03);
+            border-radius: var(--border-radius-sm);
+            transition: var(--transition);
+        }
+        .question-group label.question {
+            font-weight: 700;
+            color: var(--dark);
+            display: block;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            background: var(--light);
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+        .radio-group label:hover {
+            background: rgba(255,127,0,0.1);
+        }
+        .radio-group input[type="radio"] {
+            accent-color: var(--primary);
+        }
+        .result-card {
+            background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(255,127,0,0.05));
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+            animation: successPulse 0.6s ease;
+            border: 2px solid var(--success);
+        }
+        @keyframes successPulse {
+            0% { transform: scale(0.95); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .result-card i {
+            font-size: 4rem;
+            color: var(--success);
+            margin-bottom: 1rem;
+        }
+        .result-card h4 {
+            font-size: 1.5rem;
+            color: var(--success);
+            margin-bottom: 0.5rem;
+        }
+        .result-card .limit-max {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
         
         /* Simulador */
         .simulator-premium { background: var(--white); border-radius: var(--border-radius); padding: 2rem; box-shadow: var(--box-shadow-lg); max-width: 700px; margin: -30px auto 2rem; position: relative; z-index: 10; transition: var(--transition); }
@@ -236,7 +411,30 @@
 <header><div class="header-container"><a href="#" class="logo"><span class="logo-icon">💰</span>Txene<span style="color: var(--secondary);">ca</span></a><button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button><nav><ul id="navMenu"><li><a href="#home">Início</a></li><li><a href="#como-funciona">Como Funciona</a></li><li><a href="#vantagens">Vantagens</a></li><li><a href="#solicitar">Solicitar</a></li><li><a href="#" id="loginBtn">Área do Cliente</a></li><li><button id="darkModeToggle" class="dark-mode-toggle"><i class="fas fa-moon"></i></button></li></ul></nav></div></header>
 
 <!-- Hero Section -->
-<section class="hero" id="home"><div class="hero-container"><div class="hero-content animated"><span class="hero-badge"><i class="fas fa-bolt"></i> Aprovação Rápida</span><h1>Empréstimos rápidos de até <span style="color: var(--primary);">300.000 MZN</span></h1><p>Com a Txeneca, você tem acesso a empréstimos de 5.000 a 300.000 MZN com aprovação rápida e condições transparentes.</p><div class="hero-buttons"><a href="#solicitar" class="btn btn-primary">Solicitar Agora <i class="fas fa-arrow-right"></i></a><a href="#" class="btn btn-outline" id="registerAccountBtn">Registar Conta</a></div><div class="stats-premium"><div class="stat-premium-item"><i class="fas fa-check-circle"></i> +4.382 empréstimos aprovados</div><div class="stat-premium-item"><i class="fas fa-smile"></i> 97% satisfação</div><div class="stat-premium-item"><i class="fas fa-map-marker-alt"></i> Atendimento Moçambique</div></div></div><div class="hero-image animated"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 400'%3E%3Crect fill='%23FF7F0015' width='500' height='400'/%3E%3Ccircle fill='%23FFD70030' cx='250' cy='200' r='120'/%3E%3Ctext x='250' y='220' text-anchor='middle' font-size='40' fill='%23FF7F00'%3E💰%3C/text%3E%3C/svg%3E" alt="Empréstimos" style="width:100%; max-width:400px;"></div></div></section>
+<section class="hero" id="home"><div class="hero-container"><div class="hero-content animated"><span class="hero-badge"><i class="fas fa-bolt"></i> Aprovação Rápida</span><h1>Empréstimos rápidos de até <span style="color: var(--primary);">300.000 MZN</span></h1><p>Com a Txeneca, você tem acesso a empréstimos de 5.000 a 300.000 MZN com aprovação rápida e condições transparentes.</p><div class="hero-buttons"><a href="#solicitar" class="btn btn-primary">Solicitar Agora <i class="fas fa-arrow-right"></i></a><a href="#" class="btn btn-outline" id="registerAccountBtn">Registar Conta</a></div><div class="stats-premium"><div class="stat-premium-item"><i class="fas fa-check-circle"></i> +4.382 empréstimos aprovados</div><div class="stat-premium-item"><i class="fas fa-smile"></i> 97% satisfação</div><div class="stat-premium-item"><i class="fas fa-map-marker-alt"></i> Atendimento Moçambique</div></div></div><div class="hero-image animated">
+    <!-- Cartão de Estado da Conta - Substitui a imagem -->
+    <div class="account-status-card">
+        <div class="status-header">
+            <i class="fas fa-chart-line"></i>
+            <h3>Estado da Conta</h3>
+        </div>
+        <div class="debt-info">
+            <div style="font-size: 0.85rem; color: var(--gray);">Saldo em Dívida</div>
+            <div class="debt-amount">0,00 MZN</div>
+            <span class="debt-status"><i class="fas fa-check-circle"></i> Sem dívidas ativas</span>
+        </div>
+        <div class="limit-info">
+            <div class="limit-row">
+                <span class="limit-label"><i class="fas fa-arrow-up"></i> Limite Máximo:</span>
+                <span class="limit-value">300.000 MZN</span>
+            </div>
+            <div class="limit-row">
+                <span class="limit-label"><i class="fas fa-arrow-down"></i> Limite Mínimo:</span>
+                <span class="limit-value">5.000 MZN</span>
+            </div>
+        </div>
+    </div>
+</div></div></section>
 
 <!-- Simulador Premium -->
 <div class="simulator-premium animated"><h3 style="color:var(--primary); margin-bottom:1rem;"><i class="fas fa-calculator"></i> Simule seu empréstimo</h3><div class="form-group"><label>Valor pretendido (MZN)</label><input type="range" id="simAmount" min="5000" max="300000" step="1000" value="50000" style="width:100%"><span id="simAmountValue">50.000 MZN</span></div><div class="form-group"><label>Prazo (meses)</label><select id="simTerm"><option value="4">4 meses</option><option value="5">5 meses</option><option value="6" selected>6 meses</option><option value="7">7 meses</option><option value="8">8 meses</option><option value="9">9 meses</option><option value="10">10 meses</option><option value="11">11 meses</option><option value="12">12 meses</option></select></div><div class="calculator-results"><div class="result-item"><span>Parcela mensal:</span><span id="simInstallment">0 MZN</span></div><div class="result-item"><span>Juros (7%):</span><span id="simInterest">0 MZN</span></div><div class="result-item total"><span>Total a pagar:</span><span id="simTotal">0 MZN</span></div></div></div>
@@ -256,7 +454,100 @@
 <!-- Registration Form -->
 <section class="registration" id="solicitar"><div class="section-header"><h2>Solicite Seu Empréstimo</h2><p>Preencha o formulário abaixo</p></div><div class="form-container animated" id="formContainer"><form id="loanForm"><h3 style="margin-bottom:1rem;">Informações Pessoais</h3><div class="form-group"><input type="text" id="fullName" placeholder="Nome Completo" required></div><div class="form-group"><input type="text" id="emailPhone" placeholder="Email ou Telefone" required></div><div class="form-group"><input type="password" id="password" placeholder="Senha" required></div><div class="form-group"><input type="password" id="confirmPassword" placeholder="Confirmar Senha" required></div><h3 style="margin:1.5rem 0 1rem;">Documentação Obrigatória (BI)</h3><div class="form-group"><input type="text" id="biNumber" placeholder="Número do BI" required></div><div class="form-group"><label>Foto da Frente do BI</label><input type="file" id="biFront" accept="image/*" required><div id="biFrontPreview" class="image-preview"></div></div><div class="form-group"><label>Foto do Verso do BI</label><input type="file" id="biBack" accept="image/*" required><div id="biBackPreview" class="image-preview"></div></div><h3 style="margin:1.5rem 0 1rem;">Método de Recebimento</h3><div class="payment-methods"><div class="payment-method"><input type="radio" name="paymentMethod" value="emola" id="emola"><label for="emola"><i class="fas fa-mobile-alt"></i><span>E-Mola</span></label></div><div class="payment-method"><input type="radio" name="paymentMethod" value="mpesa" id="mpesa"><label for="mpesa"><i class="fas fa-wallet"></i><span>M-Pesa</span></label></div><div class="payment-method"><input type="radio" name="paymentMethod" value="visa" id="visa"><label for="visa"><i class="fas fa-credit-card"></i><span>Visa</span></label></div></div><div class="form-group"><label>Número para receber o valor (M-Pesa/E-Mola ou IBAN)</label><input type="text" id="receiverNumber" placeholder="Ex: 84 123 4567 ou conta bancária" required></div>
 <div class="form-group"><label>Nome de Confirmação</label><input type="text" id="confirmName" placeholder="Nome associado ao número de pagamento" required></div>
-<div class="loan-calculator"><h3>Calculadora (juros fixo 7%)</h3><div class="form-group"><label>Valor: <span id="loanAmountValue">50.000 MZN</span></label><input type="range" id="loanAmount" min="5000" max="300000" step="1000" value="50000" style="width:100%"></div><div class="form-group"><label>Prazo (Meses)</label><select id="loanTerm"><option value="4">4 Meses</option><option value="5">5 Meses</option><option value="6" selected>6 Meses</option><option value="7">7 Meses</option><option value="8">8 Meses</option><option value="9">9 Meses</option><option value="10">10 Meses</option><option value="11">11 Meses</option><option value="12">12 Meses</option></select></div><div class="calculator-results"><div class="result-item"><span>Valor Solicitado:</span><span id="requestedAmount">50.000 MZN</span></div><div class="result-item"><span>Juros (7%):</span><span id="interestAmount">3.500 MZN</span></div><div class="result-item"><span>Total a Pagar:</span><span id="totalToPay">53.500 MZN</span></div><div class="result-item total"><span>Prestação Mensal:</span><span id="monthlyPayment">8.917 MZN</span></div></div></div><div style="background:#f0f0f0; padding:1rem; border-radius:12px; margin:1rem 0;"><span>Taxa de Inscrição: <strong id="registrationFee">1.299 MZN</strong></span></div><div class="form-group"><input type="checkbox" id="terms"> <label for="terms" style="display:inline">Aceito os Termos e Condições</label></div><button type="submit" class="btn btn-primary" style="width:100%">Continuar para Pagamento</button></form></div><div class="payment-instructions" id="paymentInstructions" style="display: none;"><div class="instruction-card"><button id="backToFormBtn" class="btn btn-secondary" style="margin-bottom:1rem">← Voltar</button><div id="loanSummaryPremium" class="loan-summary-premium"></div><h3>Pagamento da Taxa de Inscrição</h3><div class="payment-details" id="paymentDetails"></div><form id="paymentProofForm"><div class="form-group"><label>Comprovativo de Pagamento</label><input type="file" id="paymentProof" accept="image/*" required><div id="paymentProofPreview" class="image-preview"></div></div><button type="submit" class="btn btn-primary" style="width:100%">Enviar Comprovativo</button></form></div></div></section>
+<div class="loan-calculator"><h3>Calculadora (juros fixo 7%)</h3><div class="form-group"><label>Valor: <span id="loanAmountValue">50.000 MZN</span></label><input type="range" id="loanAmount" min="5000" max="300000" step="1000" value="50000" style="width:100%"></div><div class="form-group"><label>Prazo (Meses)</label><select id="loanTerm"><option value="4">4 Meses</option><option value="5">5 Meses</option><option value="6" selected>6 Meses</option><option value="7">7 Meses</option><option value="8">8 Meses</option><option value="9">9 Meses</option><option value="10">10 Meses</option><option value="11">11 Meses</option><option value="12">12 Meses</option></select></div><div class="calculator-results"><div class="result-item"><span>Valor Solicitado:</span><span id="requestedAmount">50.000 MZN</span></div><div class="result-item"><span>Juros (7%):</span><span id="interestAmount">3.500 MZN</span></div><div class="result-item"><span>Total a Pagar:</span><span id="totalToPay">53.500 MZN</span></div><div class="result-item total"><span>Prestação Mensal:</span><span id="monthlyPayment">8.917 MZN</span></div></div></div><div style="background:#f0f0f0; padding:1rem; border-radius:12px; margin:1rem 0;"><span>Taxa de Inscrição: <strong id="registrationFee">1.299 MZN</strong></span></div><div class="form-group"><input type="checkbox" id="terms"> <label for="terms" style="display:inline">Aceito os Termos e Condições</label></div>
+<!-- Seção de Análise Financeira e Elegibilidade -->
+<div id="financialAnalysisSection" style="display: none;">
+    <h3 style="margin: 1.5rem 0 1rem; color: var(--primary);"><i class="fas fa-chart-pie"></i> Análise Financeira e Elegibilidade</h3>
+    
+    <div class="eligibility-progress">
+        <div class="eligibility-progress-fill" id="eligibilityProgressFill"></div>
+    </div>
+    <div class="progress-percent" id="progressPercent">0%</div>
+    
+    <div class="question-group" data-question="1">
+        <label class="question">1. Tem uma fonte de rendimento fixa?</label>
+        <div class="radio-group">
+            <label><input type="radio" name="incomeFixed" value="sim"> Sim</label>
+            <label><input type="radio" name="incomeFixed" value="nao"> Não</label>
+        </div>
+    </div>
+    
+    <div class="question-group" data-question="2">
+        <label class="question">2. Qual é a sua profissão?</label>
+        <input type="text" id="profession" placeholder="Digite sua profissão" style="width:100%; padding:0.8rem; border-radius:12px; border:1px solid #ddd;">
+    </div>
+    
+    <div class="question-group" data-question="3">
+        <label class="question">3. Quanto ganha por mês?</label>
+        <div class="radio-group">
+            <label><input type="radio" name="monthlyIncome" value="menos5k"> Menos de 5.000 MT</label>
+            <label><input type="radio" name="monthlyIncome" value="5k-10k"> 5.000 MT a 10.000 MT</label>
+            <label><input type="radio" name="monthlyIncome" value="10k-20k"> 10.000 MT a 20.000 MT</label>
+            <label><input type="radio" name="monthlyIncome" value="mais20k"> Mais de 20.000 MT</label>
+        </div>
+    </div>
+    
+    <div class="question-group" data-question="4">
+        <label class="question">4. Quanto pretende solicitar?</label>
+        <input type="number" id="desiredAmount" placeholder="Valor em MZN" min="5000" max="300000" style="width:100%; padding:0.8rem; border-radius:12px; border:1px solid #ddd;">
+    </div>
+    
+    <div class="question-group" data-question="5">
+        <label class="question">5. Qual será a finalidade do empréstimo?</label>
+        <div class="radio-group">
+            <label><input type="radio" name="purpose" value="negocio"> Negócio</label>
+            <label><input type="radio" name="purpose" value="emergencia"> Emergência</label>
+            <label><input type="radio" name="purpose" value="educacao"> Educação</label>
+            <label><input type="radio" name="purpose" value="construcao"> Construção</label>
+            <label><input type="radio" name="purpose" value="outro"> Outro</label>
+        </div>
+    </div>
+    
+    <div class="question-group" data-question="6">
+        <label class="question">6. Em quantos meses pretende pagar?</label>
+        <select id="desiredTerm" style="width:100%; padding:0.8rem; border-radius:12px; border:1px solid #ddd;">
+            <option value="4">4 meses</option>
+            <option value="5">5 meses</option>
+            <option value="6">6 meses</option>
+            <option value="7">7 meses</option>
+            <option value="8">8 meses</option>
+            <option value="9">9 meses</option>
+            <option value="10">10 meses</option>
+            <option value="11">11 meses</option>
+            <option value="12">12 meses</option>
+        </select>
+    </div>
+    
+    <div class="question-group" data-question="7">
+        <label class="question">7. Tem algum empréstimo ativo neste momento?</label>
+        <div class="radio-group">
+            <label><input type="radio" name="activeLoan" value="sim"> Sim</label>
+            <label><input type="radio" name="activeLoan" value="nao"> Não</label>
+        </div>
+    </div>
+    
+    <div class="question-group" data-question="8">
+        <label class="question">8. Já teve problemas de atraso no pagamento de empréstimos?</label>
+        <div class="radio-group">
+            <label><input type="radio" name="latePayment" value="sim"> Sim</label>
+            <label><input type="radio" name="latePayment" value="nao"> Não</label>
+        </div>
+    </div>
+    
+    <div class="question-group" data-question="9">
+        <label class="question">9. Concorda em fornecer informações verdadeiras para análise do seu pedido?</label>
+        <div class="radio-group">
+            <label><input type="radio" name="truthAgree" value="sim"> Sim</label>
+            <label><input type="radio" name="truthAgree" value="nao"> Não</label>
+        </div>
+    </div>
+    
+    <div id="eligibilityResultContainer" style="display: none;"></div>
+</div>
+
+<button type="submit" class="btn btn-primary" style="width:100%" id="submitLoanBtn">Continuar para Pagamento</button>
+</form></div>
+<div class="payment-instructions" id="paymentInstructions" style="display: none;"><div class="instruction-card"><button id="backToFormBtn" class="btn btn-secondary" style="margin-bottom:1rem">← Voltar</button><div id="loanSummaryPremium" class="loan-summary-premium"></div><h3>Pagamento da Taxa de Inscrição</h3><div class="payment-details" id="paymentDetails"></div><form id="paymentProofForm"><div class="form-group"><label>Comprovativo de Pagamento</label><input type="file" id="paymentProof" accept="image/*" required><div id="paymentProofPreview" class="image-preview"></div></div><button type="submit" class="btn btn-primary" style="width:100%">Enviar Comprovativo</button></form></div></div></section>
 
 <!-- Testimonials -->
 <section class="testimonials"><div class="section-header"><h2>O que nossos clientes dizem</h2><p>Experiências reais</p></div><div class="testimonials-container" id="testimonialsContainer"></div></section>
@@ -384,69 +675,260 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     window.showNotification = showNotif;
     
-    const formContainer = document.getElementById('formContainer');
-    const paymentInstructions = document.getElementById('paymentInstructions');
-    const loanForm = document.getElementById('loanForm');
+    // Financial Analysis and Eligibility Logic
+    const financialSection = document.getElementById('financialAnalysisSection');
+    const submitBtn = document.getElementById('submitLoanBtn');
+    let eligibilityQuestionsAnswered = {
+        q1: false, q2: false, q3: false, q4: false, q5: false, q6: false, q7: false, q8: false, q9: false
+    };
     
-    if(loanForm) {
-        loanForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const biFrontFile = document.getElementById('biFront')?.files[0];
-            const biBackFile = document.getElementById('biBack')?.files[0];
-            if(!biFrontFile || !biBackFile) { showNotif('Envie frente e verso do BI', 'error'); return; }
-            let amount = parseInt(loanSlider?.value || 50000);
-            let fee = calcFee(amount);
-            let receiverNumber = document.getElementById('receiverNumber')?.value;
-            let confirmName = document.getElementById('confirmName')?.value;
-            let fullName = document.getElementById('fullName')?.value || '';
-            let emailPhone = document.getElementById('emailPhone')?.value || '';
-            
-            if(!receiverNumber) { showNotif('Informe número para recebimento', 'error'); return; }
-            if(!confirmName) { showNotif('Informe o Nome de Confirmação', 'error'); return; }
-            
-            const summaryDiv = document.getElementById('loanSummaryPremium');
-            if(summaryDiv) {
-                summaryDiv.innerHTML = `
-                    <h4><i class="fas fa-file-invoice"></i> Resumo do Empréstimo</h4>
-                    <div class="summary-grid">
-                        <div class="summary-item"><span>Número do Cliente:</span><strong>${emailPhone || fullName || 'N/A'}</strong></div>
-                        <div class="summary-item"><span>Nome de Confirmação:</span><strong>${confirmName}</strong></div>
-                        <div class="summary-item"><span>Valor Solicitado:</span><strong>${amount.toLocaleString('pt-MZ')} MZN</strong></div>
-                        <div class="summary-item"><span>Prazo:</span><strong>${loanTerm?.value || 6} meses</strong></div>
-                        <div class="summary-item"><span>Taxa de Inscrição:</span><strong>${fee.toLocaleString('pt-MZ')} MZN</strong></div>
-                        <div class="summary-item highlight"><span>Total a Pagar (empréstimo):</span><strong>${Math.round(amount + (amount * 0.07)).toLocaleString('pt-MZ')} MZN</strong></div>
+    function updateEligibilityProgress() {
+        let answeredCount = 0;
+        for(let key in eligibilityQuestionsAnswered) {
+            if(eligibilityQuestionsAnswered[key]) answeredCount++;
+        }
+        let percent = Math.round((answeredCount / 9) * 100);
+        const progressFill = document.getElementById('eligibilityProgressFill');
+        const progressPercent = document.getElementById('progressPercent');
+        if(progressFill) progressFill.style.width = percent + '%';
+        if(progressPercent) progressPercent.innerText = percent + '%';
+        
+        // Check if all questions are answered (100%)
+        if(answeredCount === 9) {
+            showEligibilityResult();
+        } else {
+            const resultContainer = document.getElementById('eligibilityResultContainer');
+            if(resultContainer) resultContainer.style.display = 'none';
+        }
+    }
+    
+    function showEligibilityResult() {
+        // Check if user is eligible (all positive responses)
+        const incomeFixed = document.querySelector('input[name="incomeFixed"]:checked')?.value;
+        const monthlyIncome = document.querySelector('input[name="monthlyIncome"]:checked')?.value;
+        const activeLoan = document.querySelector('input[name="activeLoan"]:checked')?.value;
+        const latePayment = document.querySelector('input[name="latePayment"]:checked')?.value;
+        const truthAgree = document.querySelector('input[name="truthAgree"]:checked')?.value;
+        
+        // Determine if eligible (basic criteria)
+        let isEligible = true;
+        let eligibilityMessage = "";
+        
+        if(incomeFixed === 'nao') {
+            isEligible = false;
+            eligibilityMessage = "Renda fixa não comprovada";
+        } else if(monthlyIncome === 'menos5k') {
+            isEligible = false;
+            eligibilityMessage = "Renda mensal abaixo do mínimo";
+        } else if(activeLoan === 'sim') {
+            isEligible = false;
+            eligibilityMessage = "Empréstimo ativo existente";
+        } else if(latePayment === 'sim') {
+            isEligible = false;
+            eligibilityMessage = "Histórico de atraso em pagamentos";
+        } else if(truthAgree === 'nao') {
+            isEligible = false;
+            eligibilityMessage = "Necessário concordar com os termos";
+        }
+        
+        const resultContainer = document.getElementById('eligibilityResultContainer');
+        if(resultContainer) {
+            if(isEligible) {
+                resultContainer.innerHTML = `
+                    <div class="result-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h4>✅ Elegível para Solicitação</h4>
+                        <div class="limit-max">Limite máximo disponível: Até 300.000 MZN</div>
+                        <p style="color: var(--gray); margin: 1rem 0;">Processo concluído com sucesso!</p>
+                        <button class="btn btn-success" id="continueEligibilityBtn"><i class="fas fa-arrow-right"></i> Continuar Solicitação</button>
+                    </div>
+                `;
+                const continueBtn = document.getElementById('continueEligibilityBtn');
+                if(continueBtn) {
+                    continueBtn.addEventListener('click', () => {
+                        // Proceed to payment
+                        proceedToPayment();
+                    });
+                }
+            } else {
+                resultContainer.innerHTML = `
+                    <div class="result-card" style="border-color: var(--error); background: rgba(239,68,68,0.1);">
+                        <i class="fas fa-times-circle" style="color: var(--error);"></i>
+                        <h4 style="color: var(--error);">Não Elegível</h4>
+                        <p style="color: var(--gray); margin: 1rem 0;">${eligibilityMessage}</p>
+                        <p>Recomendamos que corrija os pontos acima e tente novamente.</p>
                     </div>
                 `;
             }
-            const paymentDetails = document.getElementById('paymentDetails');
-            if(paymentDetails) {
-                paymentDetails.innerHTML = `
-                    <div class="result-item"><span>Valor da Taxa:</span><span>${fee.toLocaleString('pt-MZ')} MZN</span></div>
-                    <div class="result-item"><span>Número:</span><span><strong>${PAYMENT_NUMBER}</strong> <button class="copy-btn" data-text="${PAYMENT_NUMBER}" style="background:var(--primary);color:white;border:none;padding:0.2rem 0.8rem;border-radius:20px;cursor:pointer;">Copiar</button></span></div>
-                    <div class="result-item"><span>Nome:</span><span><strong>${PAYMENT_NAME}</strong></span></div>
-                `;
-                document.querySelectorAll('.copy-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        navigator.clipboard.writeText(btn.getAttribute('data-text'));
-                        showNotif('Número copiado!', 'success');
-                    });
+            resultContainer.style.display = 'block';
+            resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    }
+    
+    function proceedToPayment() {
+        const biFrontFile = document.getElementById('biFront')?.files[0];
+        const biBackFile = document.getElementById('biBack')?.files[0];
+        if(!biFrontFile || !biBackFile) { showNotif('Envie frente e verso do BI', 'error'); return; }
+        let amount = parseInt(loanSlider?.value || 50000);
+        let fee = calcFee(amount);
+        let receiverNumber = document.getElementById('receiverNumber')?.value;
+        let confirmName = document.getElementById('confirmName')?.value;
+        let emailPhone = document.getElementById('emailPhone')?.value || '';
+        
+        if(!receiverNumber) { showNotif('Informe número para recebimento', 'error'); return; }
+        if(!confirmName) { showNotif('Informe o Nome de Confirmação', 'error'); return; }
+        
+        const summaryDiv = document.getElementById('loanSummaryPremium');
+        if(summaryDiv) {
+            summaryDiv.innerHTML = `
+                <h4><i class="fas fa-file-invoice"></i> Resumo do Empréstimo</h4>
+                <div class="summary-grid">
+                    <div class="summary-item"><span>Número do Cliente:</span><strong>${emailPhone || 'N/A'}</strong></div>
+                    <div class="summary-item"><span>Nome de Confirmação:</span><strong>${confirmName}</strong></div>
+                    <div class="summary-item"><span>Valor Solicitado:</span><strong>${amount.toLocaleString('pt-MZ')} MZN</strong></div>
+                    <div class="summary-item"><span>Prazo:</span><strong>${loanTerm?.value || 6} meses</strong></div>
+                    <div class="summary-item"><span>Taxa de Inscrição:</span><strong>${fee.toLocaleString('pt-MZ')} MZN</strong></div>
+                    <div class="summary-item highlight"><span>Total a Pagar (empréstimo):</span><strong>${Math.round(amount + (amount * 0.07)).toLocaleString('pt-MZ')} MZN</strong></div>
+                </div>
+            `;
+        }
+        const paymentDetails = document.getElementById('paymentDetails');
+        if(paymentDetails) {
+            paymentDetails.innerHTML = `
+                <div class="result-item"><span>Valor da Taxa:</span><span>${fee.toLocaleString('pt-MZ')} MZN</span></div>
+                <div class="result-item"><span>Número:</span><span><strong>${PAYMENT_NUMBER}</strong> <button class="copy-btn" data-text="${PAYMENT_NUMBER}" style="background:var(--primary);color:white;border:none;padding:0.2rem 0.8rem;border-radius:20px;cursor:pointer;">Copiar</button></span></div>
+                <div class="result-item"><span>Nome:</span><span><strong>${PAYMENT_NAME}</strong></span></div>
+            `;
+            document.querySelectorAll('.copy-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    navigator.clipboard.writeText(btn.getAttribute('data-text'));
+                    showNotif('Número copiado!', 'success');
                 });
-            }
-            if(formContainer) formContainer.style.display = 'none';
-            if(paymentInstructions) paymentInstructions.style.display = 'block';
-            
-            // Scroll suave para a seção de pagamento
-            setTimeout(() => {
-                paymentInstructions?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
+            });
+        }
+        const formContainer = document.getElementById('formContainer');
+        const paymentInstructions = document.getElementById('paymentInstructions');
+        if(formContainer) formContainer.style.display = 'none';
+        if(paymentInstructions) paymentInstructions.style.display = 'block';
+        
+        setTimeout(() => {
+            paymentInstructions?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    }
+    
+    // Track eligibility answers
+    function trackEligibilityAnswers() {
+        const incomeFixedRadios = document.querySelectorAll('input[name="incomeFixed"]');
+        incomeFixedRadios.forEach(radio => {
+            radio.addEventListener('change', () => { eligibilityQuestionsAnswered.q1 = true; updateEligibilityProgress(); });
+        });
+        
+        const professionInput = document.getElementById('profession');
+        if(professionInput) {
+            professionInput.addEventListener('input', () => { if(professionInput.value.trim()) eligibilityQuestionsAnswered.q2 = true; updateEligibilityProgress(); });
+        }
+        
+        const monthlyIncomeRadios = document.querySelectorAll('input[name="monthlyIncome"]');
+        monthlyIncomeRadios.forEach(radio => {
+            radio.addEventListener('change', () => { eligibilityQuestionsAnswered.q3 = true; updateEligibilityProgress(); });
+        });
+        
+        const desiredAmountInput = document.getElementById('desiredAmount');
+        if(desiredAmountInput) {
+            desiredAmountInput.addEventListener('input', () => { if(desiredAmountInput.value >= 5000) eligibilityQuestionsAnswered.q4 = true; updateEligibilityProgress(); });
+        }
+        
+        const purposeRadios = document.querySelectorAll('input[name="purpose"]');
+        purposeRadios.forEach(radio => {
+            radio.addEventListener('change', () => { eligibilityQuestionsAnswered.q5 = true; updateEligibilityProgress(); });
+        });
+        
+        const desiredTermSelect = document.getElementById('desiredTerm');
+        if(desiredTermSelect) {
+            desiredTermSelect.addEventListener('change', () => { eligibilityQuestionsAnswered.q6 = true; updateEligibilityProgress(); });
+        }
+        
+        const activeLoanRadios = document.querySelectorAll('input[name="activeLoan"]');
+        activeLoanRadios.forEach(radio => {
+            radio.addEventListener('change', () => { eligibilityQuestionsAnswered.q7 = true; updateEligibilityProgress(); });
+        });
+        
+        const latePaymentRadios = document.querySelectorAll('input[name="latePayment"]');
+        latePaymentRadios.forEach(radio => {
+            radio.addEventListener('change', () => { eligibilityQuestionsAnswered.q8 = true; updateEligibilityProgress(); });
+        });
+        
+        const truthAgreeRadios = document.querySelectorAll('input[name="truthAgree"]');
+        truthAgreeRadios.forEach(radio => {
+            radio.addEventListener('change', () => { eligibilityQuestionsAnswered.q9 = true; updateEligibilityProgress(); });
         });
     }
     
+    // Modified form submission to show financial analysis first
+    const loanForm = document.getElementById('loanForm');
+    if(loanForm) {
+        loanForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate basic fields first
+            const fullName = document.getElementById('fullName')?.value;
+            const emailPhone = document.getElementById('emailPhone')?.value;
+            const password = document.getElementById('password')?.value;
+            const confirmPassword = document.getElementById('confirmPassword')?.value;
+            const biNumber = document.getElementById('biNumber')?.value;
+            const biFrontFile = document.getElementById('biFront')?.files[0];
+            const biBackFile = document.getElementById('biBack')?.files[0];
+            const receiverNumber = document.getElementById('receiverNumber')?.value;
+            const confirmName = document.getElementById('confirmName')?.value;
+            const terms = document.getElementById('terms')?.checked;
+            
+            if(!fullName || !emailPhone || !password || !confirmPassword || !biNumber) {
+                showNotif('Preencha todos os campos obrigatórios', 'error');
+                return;
+            }
+            if(password !== confirmPassword) {
+                showNotif('As senhas não coincidem', 'error');
+                return;
+            }
+            if(!biFrontFile || !biBackFile) {
+                showNotif('Envie a foto da frente e verso do BI', 'error');
+                return;
+            }
+            if(!receiverNumber || !confirmName) {
+                showNotif('Preencha os dados de recebimento', 'error');
+                return;
+            }
+            if(!terms) {
+                showNotif('Aceite os Termos e Condições', 'error');
+                return;
+            }
+            
+            // Show financial analysis section
+            if(financialSection) {
+                financialSection.style.display = 'block';
+                // Scroll to financial analysis
+                setTimeout(() => {
+                    financialSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+                
+                // Initialize tracking
+                trackEligibilityAnswers();
+                
+                // Hide the submit button or change its action
+                if(submitBtn) submitBtn.style.display = 'none';
+            }
+        });
+    }
+    
+    const formContainer = document.getElementById('formContainer');
+    const paymentInstructions = document.getElementById('paymentInstructions');
     const backBtn = document.getElementById('backToFormBtn');
     if(backBtn) {
         backBtn.addEventListener('click', () => { 
             if(formContainer) formContainer.style.display = 'block'; 
-            if(paymentInstructions) paymentInstructions.style.display = 'none'; 
+            if(paymentInstructions) paymentInstructions.style.display = 'none';
+            if(submitBtn) submitBtn.style.display = 'block';
+            if(financialSection) financialSection.style.display = 'none';
         });
     }
     
@@ -633,9 +1115,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if(loginBtn) {
         loginBtn.addEventListener('click', (e) => { e.preventDefault(); if(loginModal) loginModal.style.display = 'flex'; });
     }
-    const loginForm = document.getElementById('loginForm');
-    if(loginForm) {
-        loginForm.addEventListener('submit', (e) => { e.preventDefault(); if(loginModal) loginModal.style.display = 'none'; if(clientPanelModal) clientPanelModal.style.display = 'flex'; });
+    const loginFormElement = document.getElementById('loginForm');
+    if(loginFormElement) {
+        loginFormElement.addEventListener('submit', (e) => { e.preventDefault(); if(loginModal) loginModal.style.display = 'none'; if(clientPanelModal) clientPanelModal.style.display = 'flex'; });
     }
     const solicitarFromPanel = document.getElementById('solicitarFromPanel');
     if(solicitarFromPanel) {
@@ -704,3 +1186,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+        
+        

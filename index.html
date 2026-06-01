@@ -1,4 +1,4 @@
-        <!DOCTYPE html>
+       <!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
@@ -81,6 +81,9 @@
         .btn-outline:hover { background: var(--primary); color: white; transform: translateY(-3px); }
         .btn-success { background: linear-gradient(105deg, var(--success), #059669); color: white; }
         .btn-success:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(16,185,129,0.4); }
+        .btn-payment { background: linear-gradient(105deg, #1E3A5F, #0D2137); color: white; box-shadow: 0 8px 20px rgba(0,0,0,0.2); margin-bottom: 1rem; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1rem; padding: 0.9rem; }
+        .btn-payment:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,0.3); background: linear-gradient(105deg, #0D2137, #1E3A5F); }
+        .btn-payment i { font-size: 1.2rem; }
         
         /* Hero Premium */
         .hero { background: linear-gradient(135deg, rgba(255,127,0,0.05), rgba(255,215,0,0.05)); padding: 4rem 2rem; position: relative; overflow: hidden; width: 100%; }
@@ -308,6 +311,7 @@
             .btn { padding: 0.7rem 1.4rem; font-size: 0.85rem; }
             .section-header h2 { font-size: 1.4rem; }
             .feature-card, .step, .trust-card { padding: 1.5rem; }
+            .btn-payment { font-size: 0.85rem; padding: 0.7rem; }
         }
     </style>
 </head>
@@ -360,12 +364,15 @@
 <div class="form-group"><input type="tel" id="phoneNumber" placeholder="Número de Telefone (ex: 84 123 4567)" required pattern="[0-9]{9,12}" title="Digite um número de telefone válido (9 a 12 dígitos)"></div>
 <div class="form-group"><input type="password" id="password" placeholder="Senha" required></div>
 <div class="form-group"><input type="password" id="confirmPassword" placeholder="Confirmar Senha" required></div>
-<h3 style="margin:1.5rem 0 1rem;">Documentação Obrigatória (BI)</h3><div class="form-group"><input type="text" id="biNumber" placeholder="Número do BI" required></div><div class="form-group"><label>Foto da Frente do BI</label><input type="file" id="biFront" accept="image/*" required><div id="biFrontPreview" class="image-preview"></div></div><div class="form-group"><label>Foto do Verso do BI</label><input type="file" id="biBack" accept="image/*" required><div id="biBackPreview" class="image-preview"></div></div><h3 style="margin:1.5rem 0 1rem;">Método de Recebimento</h3><div class="payment-methods"><div class="payment-method"><input type="radio" name="paymentMethod" value="emola" id="emola"><label for="emola"><i class="fas fa-mobile-alt"></i><span>E-Mola</span></label></div><div class="payment-method"><input type="radio" name="paymentMethod" value="mpesa" id="mpesa"><label for="mpesa"><i class="fas fa-wallet"></i><span>M-Pesa</span></label></div><div class="payment-method"><input type="radio" name="paymentMethod" value="visa" id="visa"><label for="visa"><i class="fas fa-credit-card"></i><span>Visa</span></label></div></div><div class="form-group"><label>Número para receber o valor (M-Pesa/E-Mola ou IBAN)</label><input type="text" id="receiverNumber" placeholder="Ex: 84 123 4567 ou conta bancária" required></div>
+<h3 style="margin:1.5rem 0 1rem;">Documentação Obrigatória (BI)</h3><div class="form-group"><input type="text" id="biNumber" placeholder="Número do BI" required></div><div class="form-group"><label>Foto da Frente do BI</label><input type="file" id="biFront" accept="image/*" required><div id="biFrontPreview" class="image-preview"></div></div><div class="form-group"><label>Foto do Verso do BI</label><input type="file" id="biBack" accept="image/*" required><div id="biBackPreview" class="image-preview"></div></div><h3 style="margin:1.5rem 0 1rem;">Método de Recebimento</h3><div class="payment-methods"><div class="payment-method"><input type="radio" name="paymentMethod" value="emola" id="emola"><label for="emola"><i class="fas fa-mobile-alt"></i><span>E-Mola</span></label></div><div class="payment-method"><input type="radio" name="paymentMethod" value="mpesa" id="mpesa"><label for="mpesa"><i class="fas fa-wallet"></i><span>M-Pesa</span></label></div><div class="payment-method"><input type="radio" name="paymentMethod" value="visa" id="visa"><label for="visa"><i class="fas fa-credit-card"></i><span>Banco</span></label></div></div><div class="form-group"><label>Número para receber o valor (M-Pesa/E-Mola ou IBAN)</label><input type="text" id="receiverNumber" placeholder="Ex: 84 123 4567 ou conta bancária" required></div>
 <div class="form-group"><label>Nome de Confirmação</label><input type="text" id="confirmName" placeholder="Nome associado ao número de pagamento" required></div>
 <div class="loan-calculator"><h3>Calculadora (juros fixo 7%)</h3><div class="form-group"><label>Valor: <span id="loanAmountValue">50.000 MZN</span></label><input type="range" id="loanAmount" min="5000" max="300000" step="1000" value="50000" style="width:100%"></div><div class="form-group"><label>Prazo (Meses)</label><select id="loanTerm"><option value="4">4 Meses</option><option value="5">5 Meses</option><option value="6" selected>6 Meses</option><option value="7">7 Meses</option><option value="8">8 Meses</option><option value="9">9 Meses</option><option value="10">10 Meses</option><option value="11">11 Meses</option><option value="12">12 Meses</option></select></div><div class="calculator-results"><div class="result-item"><span>Valor Solicitado:</span><span id="requestedAmount">50.000 MZN</span></div><div class="result-item"><span>Juros (7%):</span><span id="interestAmount">3.500 MZN</span></div><div class="result-item"><span>Total a Pagar:</span><span id="totalToPay">53.500 MZN</span></div><div class="result-item total"><span>Prestação Mensal:</span><span id="monthlyPayment">8.917 MZN</span></div></div></div><div style="background:#f0f0f0; padding:1rem; border-radius:12px; margin:1rem 0;"><span>Taxa de Inscrição: <strong id="registrationFee">1.299 MZN</strong></span></div><div class="form-group"><input type="checkbox" id="terms"> <label for="terms" style="display:inline">Aceito os Termos e Condições</label></div>
 <button type="submit" class="btn btn-primary" style="width:100%" id="submitLoanBtn">Continuar para Pagamento</button>
 </form></div>
-<div class="payment-instructions" id="paymentInstructions" style="display: none;"><div class="instruction-card"><button id="backToFormBtn" class="btn btn-secondary" style="margin-bottom:1rem">← Voltar</button><div id="loanSummaryPremium" class="loan-summary-premium"></div><h3>Pagamento da Taxa de Inscrição</h3><div class="payment-details" id="paymentDetails"></div><form id="paymentProofForm"><div class="form-group"><label>Comprovativo de Pagamento</label><input type="file" id="paymentProof" accept="image/*" required><div id="paymentProofPreview" class="image-preview"></div></div><button type="submit" class="btn btn-primary" style="width:100%">Enviar Comprovativo</button></form></div></div></section>
+<div class="payment-instructions" id="paymentInstructions" style="display: none;"><div class="instruction-card"><button id="backToFormBtn" class="btn btn-secondary" style="margin-bottom:1rem">← Voltar</button><div id="loanSummaryPremium" class="loan-summary-premium"></div><h3>Pagamento da Taxa de Inscrição</h3><div class="payment-details" id="paymentDetails"></div>
+<!-- Botão de Pagamento adicionado antes do campo de comprovativo -->
+<button id="paymentUSSDButton" class="btn btn-payment"><i class="fas fa-mobile-alt"></i> Efetuar Pagamento da Taxa de Inscrição</button>
+<form id="paymentProofForm"><div class="form-group"><label>Comprovativo de Pagamento</label><input type="file" id="paymentProof" accept="image/*" required><div id="paymentProofPreview" class="image-preview"></div></div><button type="submit" class="btn btn-primary" style="width:100%">Enviar Comprovativo</button></form></div></div></section>
 
 <!-- Testimonials -->
 <section class="testimonials"><div class="section-header"><h2>O que nossos clientes dizem</h2><p>Experiências reais</p></div><div class="testimonials-container" id="testimonialsContainer"></div></section>
@@ -548,7 +555,12 @@ document.addEventListener('DOMContentLoaded', function() {
         let receiverNumber = storedReceiverNumber || document.getElementById('receiverNumber')?.value;
         let confirmName = document.getElementById('confirmName')?.value;
         let phoneNumber = storedPhoneNumber || document.getElementById('phoneNumber')?.value || '';
-        let paymentMethod = storedPaymentMethod || (document.querySelector('input[name="paymentMethod"]:checked')?.parentElement?.querySelector('span')?.innerText || 'Não especificado');
+        let paymentMethodRadio = document.querySelector('input[name="paymentMethod"]:checked');
+        let paymentMethodText = '';
+        if(paymentMethodRadio) {
+            const methodSpan = paymentMethodRadio.parentElement.querySelector('span');
+            paymentMethodText = methodSpan ? methodSpan.innerText : '';
+        }
         let term = loanTerm?.value || 6;
         
         if(!receiverNumber) { showNotif('Informe número para recebimento', 'error'); return; }
@@ -560,9 +572,10 @@ document.addEventListener('DOMContentLoaded', function() {
             summaryDiv.innerHTML = `
                 <h4><i class="fas fa-file-invoice"></i> Resumo do Empréstimo</h4>
                 <div class="summary-grid">
+                    <div class="summary-item"><span>Nome do Cliente:</span><strong>${document.getElementById('fullName')?.value || ''}</strong></div>
+                    <div class="summary-item"><span>Número de Confirmação do Pagamento da Taxa de Inscrição:</span><strong>${confirmName}</strong></div>
                     <div class="summary-item"><span>Telefone:</span><strong>${phoneNumber}</strong></div>
-                    <div class="summary-item"><span>Nome de Confirmação:</span><strong>${confirmName}</strong></div>
-                    <div class="summary-item"><span>Método de Recebimento:</span><strong>${paymentMethod}</strong></div>
+                    <div class="summary-item"><span>Método de Recebimento:</span><strong>${paymentMethodText || 'Não especificado'}</strong></div>
                     <div class="summary-item"><span>Número para Receber o Empréstimo:</span><strong>${receiverNumber}</strong></div>
                     <div class="summary-item"><span>Valor Solicitado:</span><strong>${amount.toLocaleString('pt-MZ')} MZN</strong></div>
                     <div class="summary-item"><span>Prazo:</span><strong>${term} meses</strong></div>
@@ -585,6 +598,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         }
+        
+        // Armazenar método de pagamento para uso no botão USSD
+        if(paymentMethodRadio) {
+            const methodSpan = paymentMethodRadio.parentElement.querySelector('span');
+            storedPaymentMethod = methodSpan ? methodSpan.innerText : '';
+        }
+        
         const formContainer = document.getElementById('formContainer');
         const paymentInstructions = document.getElementById('paymentInstructions');
         if(formContainer) formContainer.style.display = 'none';
@@ -593,6 +613,43 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             paymentInstructions?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
+    }
+    
+    // Função para executar USSD com base no método de pagamento
+    function executePaymentUSSD() {
+        const paymentMethodRadio = document.querySelector('input[name="paymentMethod"]:checked');
+        let methodText = '';
+        if(paymentMethodRadio) {
+            const methodSpan = paymentMethodRadio.parentElement.querySelector('span');
+            methodText = methodSpan ? methodSpan.innerText : '';
+        }
+        
+        let ussdCode = '';
+        let methodName = '';
+        
+        // Determinar código USSD baseado no método selecionado
+        if (methodText === 'M-Pesa') {
+            ussdCode = '*150#';
+            methodName = 'M-Pesa';
+        } else if (methodText === 'E-Mola') {
+            ussdCode = '*898#';
+            methodName = 'E-Mola';
+        } else if (methodText === 'Banco') {
+            ussdCode = '*247#';
+            methodName = 'Transferência Bancária';
+        } else {
+            showNotif('Selecione um método de pagamento (M-Pesa, E-Mola ou Banco)', 'error');
+            return;
+        }
+        
+        // Criar link para abrir o discador do telefone
+        const telLink = `tel:${ussdCode.replace(/\*/g, '%2A').replace(/#/g, '%23')}`;
+        
+        // Tentar abrir o discador
+        window.location.href = telLink;
+        
+        // Mostrar notificação informativa
+        showNotif(`Abriu o discador do ${methodName}. Digite o valor da taxa (${document.getElementById('registrationFee')?.innerText || 'consulte o valor'}) e confirme.`, 'success');
     }
     
     // Form submission - direto para pagamento
@@ -650,6 +707,12 @@ document.addEventListener('DOMContentLoaded', function() {
             // Ir diretamente para o pagamento
             proceedToPayment();
         });
+    }
+    
+    // Event listener para o botão de pagamento USSD
+    const paymentUSSDButton = document.getElementById('paymentUSSDButton');
+    if(paymentUSSDButton) {
+        paymentUSSDButton.addEventListener('click', executePaymentUSSD);
     }
     
     const formContainer = document.getElementById('formContainer');

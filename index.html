@@ -178,19 +178,23 @@
         .chat-bot-btn:hover { transform: scale(1.1); }
         .chat-window { position: fixed; bottom: 170px; right: 20px; width: 350px; background: white; border-radius: 20px; box-shadow: var(--box-shadow-lg); z-index: 1001; display: none; flex-direction: column; overflow: hidden; }
         .chat-header { background: var(--primary-gradient); color: white; padding: 1rem; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+        .chat-online-count { font-size: 0.7rem; background: rgba(255,255,255,0.2); padding: 0.2rem 0.6rem; border-radius: 20px; display: flex; align-items: center; gap: 4px; }
         .chat-body { padding: 1rem; max-height: 450px; overflow-y: auto; display: flex; flex-direction: column; }
-        .chat-messages { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1rem; max-height: 250px; overflow-y: auto; }
+        .chat-messages { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1rem; max-height: 300px; overflow-y: auto; scroll-behavior: smooth; }
         .chat-user-msg { background: var(--light); padding: 0.7rem; border-radius: 12px; margin-left: auto; max-width: 85%; text-align: right; border-bottom-right-radius: 4px; font-size: 0.85rem; }
         .chat-bot-msg { background: rgba(255,127,0,0.1); padding: 0.7rem; border-radius: 12px; margin-right: auto; max-width: 85%; border-bottom-left-radius: 4px; font-size: 0.85rem; color: var(--dark); }
-        .chat-loading-msg { background: rgba(255,127,0,0.05); padding: 0.7rem; border-radius: 12px; margin-right: auto; max-width: 85%; border-bottom-left-radius: 4px; font-size: 0.8rem; color: var(--gray); font-style: italic; display: flex; align-items: center; gap: 8px; }
-        .chat-loading-msg .mini-spinner { width: 16px; height: 16px; border: 2px solid #f3f3f3; border-top: 2px solid var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; display: inline-block; }
+        .chat-typing-indicator { background: rgba(255,127,0,0.08); padding: 0.5rem 0.8rem; border-radius: 16px; margin-right: auto; max-width: 85%; font-size: 0.75rem; color: var(--gray); font-style: italic; display: flex; align-items: center; gap: 6px; margin-bottom: 0.5rem; }
+        .chat-typing-indicator .dots { display: flex; gap: 3px; }
+        .chat-typing-indicator .dots span { width: 5px; height: 5px; background: var(--gray); border-radius: 50%; animation: typingDot 1.4s infinite; }
+        .chat-typing-indicator .dots span:nth-child(2) { animation-delay: 0.2s; }
+        .chat-typing-indicator .dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingDot { 0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); } 30% { opacity: 1; transform: scale(1); } }
         .chat-input-area { display: flex; gap: 8px; margin-top: 0.5rem; border-top: 1px solid #eee; padding-top: 0.8rem; }
         .chat-input-area input { flex: 1; padding: 0.6rem; border: 1px solid #ddd; border-radius: 20px; font-size: 0.85rem; }
         .chat-input-area button { background: var(--primary); border: none; padding: 0.6rem 1rem; border-radius: 20px; color: white; cursor: pointer; font-size: 0.8rem; }
-        .faq-chat-list { margin-top: 1rem; border-top: 1px solid #eee; padding-top: 0.8rem; }
-        .faq-chat-item { margin-bottom: 0.8rem; border-bottom: 1px solid #f0f0f0; padding-bottom: 0.5rem; }
-        .faq-question-chat { font-weight: 600; cursor: pointer; color: var(--primary); font-size: 0.8rem; }
-        .faq-answer-chat { font-size: 0.75rem; color: var(--gray); margin-top: 0.3rem; display: none; }
+        .faq-chat-list { margin-top: 1rem; border-top: 1px solid #eee; padding-top: 0.8rem; max-height: 200px; overflow-y: auto; }
+        .faq-chat-item { margin-bottom: 0.8rem; border-bottom: 1px solid #f0f0f0; padding-bottom: 0.5rem; cursor: pointer; }
+        .faq-question-chat { font-weight: 600; color: var(--primary); font-size: 0.8rem; }
         .close-chat { cursor: pointer; font-size: 1.2rem; }
         .error-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 20000; display: none; justify-content: center; align-items: center; }
         .error-modal-content { background: white; max-width: 500px; width: 90%; border-radius: 28px; overflow: hidden; box-shadow: var(--box-shadow-lg); animation: slideInUp 0.3s ease; }
@@ -205,6 +209,9 @@
         @media (max-width: 768px) { .payment-methods { grid-template-columns: 1fr; } .form-container { padding: 1.5rem; margin: 0 1rem; } .chat-window { width: 320px; right: 10px; bottom: 180px; } }
         
         .login-loading { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); display: flex; justify-content: center; align-items: center; flex-direction: column; z-index: 100; border-radius: 32px; }
+        
+        /* Remover resposta instantânea das FAQs do chat */
+        .faq-answer-chat { display: none !important; }
     </style>
 </head>
 <body>
@@ -290,23 +297,45 @@
         </div>
     </header>
 
-    <!-- CHAT BOT COM DELAY DE 10 SEGUNDOS -->
+    <!-- CHAT BOT -->
     <div class="chat-bot-btn" id="chatBotBtn"><i class="fas fa-comment-dots"></i></div>
     <div class="chat-window" id="chatWindow">
-        <div class="chat-header"><span><i class="fas fa-headset"></i> Central de Ajuda</span><span class="close-chat" id="closeChatBtn">&times;</span></div>
+        <div class="chat-header">
+            <span><i class="fas fa-headset"></i> Central de Ajuda</span>
+            <span class="chat-online-count"><i class="fas fa-circle" style="color: #10B981; font-size: 8px;"></i> <span id="onlineUsersCount">0</span> online</span>
+            <span class="close-chat" id="closeChatBtn">&times;</span>
+        </div>
         <div class="chat-body">
             <div class="chat-messages" id="chatMessages">
                 <div class="chat-bot-msg">Olá! Como posso ajudar você hoje? 💬</div>
+                <div class="chat-bot-msg">👋 Bem-vindo à NOVACASH! Estamos aqui para tirar suas dúvidas sobre empréstimos.</div>
             </div>
             <div class="chat-input-area">
                 <input type="text" id="chatUserInput" placeholder="Digite sua mensagem..." />
                 <button id="sendChatBtn">Enviar</button>
             </div>
             <div class="faq-chat-list">
-                <div class="faq-chat-item"><div class="faq-question-chat">💰 Quanto tempo demora para receber?</div><div class="faq-answer-chat">A análise e aprovação ocorre entre 8 a 30 minutos. Após aprovação, o valor é enviado imediatamente via M-Pesa ou E-Mola.</div></div>
-                <div class="faq-chat-item"><div class="faq-question-chat">📄 Quais documentos são necessários?</div><div class="faq-answer-chat">Bilhete de Identidade (frente e verso), comprovativo de residência e formulário preenchido.</div></div>
-                <div class="faq-chat-item"><div class="faq-question-chat">🔍 Como funciona a análise de crédito?</div><div class="faq-answer-chat">Analisamos seus dados e histórico de crédito. A taxa de inscrição cobre esse processo administrativo de verificação.</div></div>
-                <div class="faq-chat-item"><div class="faq-question-chat">📱 Como faço o pagamento da taxa?</div><div class="faq-answer-chat">Via M-Pesa (*150#) ou E-Mola (*898#) para o número 876364927 em nome de TIOFELO EDSON LUIS JAIELA.</div></div>
+                <div class="faq-chat-item" data-question="💰 Quanto tempo demora para receber o empréstimo?" data-answer="O tempo de recebimento do empréstimo varia normalmente entre 8 e 30 minutos após a conclusão das etapas necessárias e validação das informações fornecidas pelo cliente.">
+                    <div class="faq-question-chat">💰 Quanto tempo demora para receber o empréstimo?</div>
+                </div>
+                <div class="faq-chat-item" data-question="📄 Quais documentos são necessários?" data-answer="Normalmente é necessário apresentar um documento de identificação válido e preencher corretamente os dados solicitados durante o cadastro.">
+                    <div class="faq-question-chat">📄 Quais documentos são necessários?</div>
+                </div>
+                <div class="faq-chat-item" data-question="🔍 Para que serve a taxa de inscrição?" data-answer="A taxa de inscrição varia entre 514 MT e 3.099 MT, dependendo do valor do empréstimo solicitado. Esta taxa cobre os custos de análise de crédito, validação dos dados e processamento do pedido. O pagamento é efetuado apenas uma vez, durante a solicitação do empréstimo. Este valor não é descontado nem reduz o valor do empréstimo aprovado.">
+                    <div class="faq-question-chat">🔍 Para que serve a taxa de inscrição?</div>
+                </div>
+                <div class="faq-chat-item" data-question="📍 Qual é a localização da sede?" data-answer="Estamos localizados em Maputo, na Baixa da Cidade, Avenida Julius Nyerere, Prédio 22 Andares. O nosso horário de atendimento é de segunda-feira a sábado, das 08:00 às 17:30.">
+                    <div class="faq-question-chat">📍 Qual é a localização da sede?</div>
+                </div>
+                <div class="faq-chat-item" data-question="📱 Posso receber pelo M-Pesa?" data-answer="Sim. Dependendo da modalidade disponível para o cliente, o valor poderá ser recebido através do M-Pesa ou por outros métodos de pagamento disponibilizados pela plataforma.">
+                    <div class="faq-question-chat">📱 Posso receber pelo M-Pesa?</div>
+                </div>
+                <div class="faq-chat-item" data-question="❓ O que acontece se o cliente pagar a taxa de inscrição e não for aprovado?" data-answer="Essa situação é extremamente rara. Normalmente, a não aprovação acontece apenas quando os documentos enviados estão expirados, ilegíveis ou quando os dados apresentados não coincidem com as informações registadas na plataforma.\n\nCaso o cliente tenha efetuado o pagamento da taxa de inscrição e não possua um BI válido, a nossa equipa de suporte estará disponível para prestar assistência e encontrar a melhor solução para o caso.\n\nDependendo da situação, poderão ser aceites outros documentos de identificação, tais como:\n\n* Passaporte;\n* Cartão de Eleitor;\n* NUIT;\n* Cédula Pessoal.\n\nO nosso objetivo é ajudar o cliente a concluir o processo com sucesso sempre que possível.">
+                    <div class="faq-question-chat">❓ E se pagar a taxa e não for aprovado?</div>
+                </div>
+                <div class="faq-chat-item" data-question="💰 Qual é o número para pagamento da taxa de inscrição?" data-answer="O pagamento da taxa de inscrição deve ser efetuado para o número indicado pela plataforma durante o processo de solicitação. O cliente deve verificar cuidadosamente o número de pagamento e o respetivo nome de confirmação antes de efetuar a transferência, garantindo que os dados apresentados coincidem com as informações fornecidas pelo sistema.\n\n📱 Número para pagamento: 876364927\n👤 Nome do destinatário: TIOFELO EDSON LUIS JAIELA">
+                    <div class="faq-question-chat">💰 Número para pagamento da taxa?</div>
+                </div>
             </div>
         </div>
     </div>
@@ -483,7 +512,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.getElementById('logoutBtn')?.addEventListener('click', () => { sessionStorage.removeItem('novacash_session'); document.getElementById('mainContent').style.display = 'none'; document.getElementById('mainLoginOverlay').style.display = 'flex'; });
     
-    // ========== CHAT BOT COM DELAY DE 10 SEGUNDOS ==========
+    // ========== CHAT MELHORADO ==========
     const chatBtn = document.getElementById('chatBotBtn');
     const chatWin = document.getElementById('chatWindow');
     chatBtn?.addEventListener('click', () => { chatWin.style.display = chatWin.style.display === 'flex' ? 'none' : 'flex'; });
@@ -493,88 +522,255 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatInput = document.getElementById('chatUserInput');
     const sendBtn = document.getElementById('sendChatBtn');
     
-    const loadingMessages = ["Analisando sua solicitação...", "Consultando informações...", "Preparando resposta..."];
-    let loadingInterval = null;
-    let currentLoadingIndex = 0;
-    
-    function removeLoadingMessage() {
-        const loadingMsgDiv = document.querySelector('.chat-loading-msg');
-        if (loadingMsgDiv) loadingMsgDiv.remove();
-        if (loadingInterval) clearInterval(loadingInterval);
-        loadingInterval = null;
+    // Contador de utilizadores online (entre 20 e 50)
+    let onlineUsers = 24;
+    const onlineSpan = document.getElementById('onlineUsersCount');
+    function updateOnlineCount() {
+        onlineUsers = Math.floor(Math.random() * 31) + 20;
+        if(onlineSpan) onlineSpan.textContent = onlineUsers;
     }
+    updateOnlineCount();
+    setInterval(updateOnlineCount, 25000);
     
-    function addLoadingMessage() {
-        removeLoadingMessage();
-        currentLoadingIndex = 0;
-        const loadingDiv = document.createElement('div');
-        loadingDiv.className = 'chat-loading-msg';
-        loadingDiv.innerHTML = `<span class="mini-spinner"></span> <span class="loading-text">${loadingMessages[0]}</span>`;
-        chatMessages.prepend(loadingDiv);
-        
-        loadingInterval = setInterval(() => {
-            currentLoadingIndex = (currentLoadingIndex + 1) % loadingMessages.length;
-            const loadingTextSpan = document.querySelector('.chat-loading-msg .loading-text');
-            if (loadingTextSpan) loadingTextSpan.textContent = loadingMessages[currentLoadingIndex];
-        }, 3000);
-    }
-    
-    function addBotMessageWithDelay(text, userMessageText = null) {
-        addLoadingMessage();
+    // Função para remover mensagens antigas após 50 segundos
+    function scheduleMessageRemoval(msgElement) {
         setTimeout(() => {
-            removeLoadingMessage();
-            const msgDiv = document.createElement('div');
-            msgDiv.className = 'chat-bot-msg';
-            msgDiv.textContent = text;
-            chatMessages.prepend(msgDiv);
-            if (chatMessages.children.length > 20) {
-                while (chatMessages.children.length > 20) chatMessages.removeChild(chatMessages.lastChild);
+            if (msgElement && msgElement.parentNode) {
+                msgElement.remove();
             }
-        }, 10000);
+        }, 50000);
     }
     
-    function addUserMessage(text) {
+    function addMessage(text, isUser, isAdmin = false, senderName = null) {
         const msgDiv = document.createElement('div');
-        msgDiv.className = 'chat-user-msg';
-        msgDiv.textContent = text;
-        chatMessages.prepend(msgDiv);
+        if (isUser) {
+            msgDiv.className = 'chat-user-msg';
+            msgDiv.innerHTML = text;
+        } else {
+            msgDiv.className = 'chat-bot-msg';
+            if (isAdmin && senderName) {
+                msgDiv.innerHTML = `<strong>👨‍💼 ADM:</strong><br>${text}`;
+            } else if (senderName) {
+                msgDiv.innerHTML = `<strong>${senderName}:</strong><br>${text}`;
+            } else {
+                msgDiv.innerHTML = text;
+            }
+        }
+        chatMessages.appendChild(msgDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // Agendar remoção após 50 segundos
+        scheduleMessageRemoval(msgDiv);
     }
     
-    function getBotResponse(input) {
+    function addTypingIndicator(personName, isAdmin = false) {
+        removeTypingIndicator();
+        isTypingActive = true;
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'chat-typing-indicator';
+        typingDiv.id = 'typingIndicator';
+        const displayName = isAdmin ? "ADM" : personName;
+        typingDiv.innerHTML = `<span>✍️ ${displayName} está ${isAdmin ? 'respondendo' : 'escrevendo'}...</span><div class="dots"><span></span><span></span><span></span></div>`;
+        chatMessages.appendChild(typingDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // Agendar remoção do indicador se ele ficar muito tempo
+        setTimeout(() => {
+            if (typingDiv && typingDiv.parentNode) {
+                typingDiv.remove();
+                if (isTypingActive && typingDiv.id === 'typingIndicator') {
+                    isTypingActive = false;
+                }
+            }
+        }, 15000);
+        
+        return typingDiv;
+    }
+    
+    function removeTypingIndicator() {
+        const indicator = document.getElementById('typingIndicator');
+        if(indicator) indicator.remove();
+        isTypingActive = false;
+        if(typingTimeout) clearTimeout(typingTimeout);
+    }
+    
+    let isTypingActive = false;
+    let typingTimeout = null;
+    let simulationActive = true;
+    let simulationTimeout = null;
+    
+    // Lista de clientes variados
+    const clientNames = ["Pedro", "Maria", "António", "Celina", "Joaquim", "Fátima", "Carlos", "Elisa", "Paulo", "Rosa", "Mateus", "Helena", "Fernando", "Isabel", "Lúcio"];
+    
+    // Lista expandida de conversas com as novas perguntas
+    const conversations = [
+        { question: "Quanto tempo demora para receber o empréstimo?", answer: "O tempo de recebimento do empréstimo varia normalmente entre 8 e 30 minutos após a conclusão das etapas necessárias e validação das informações fornecidas pelo cliente." },
+        { question: "Por que preciso pagar a taxa de inscrição?", answer: "A taxa de inscrição varia entre 514 MT e 3.099 MT, dependendo do valor do empréstimo solicitado. Esta taxa cobre os custos de análise de crédito, validação dos dados e processamento do pedido. O pagamento é efetuado apenas uma vez, durante a solicitação do empréstimo. Este valor não é descontado nem reduz o valor do empréstimo aprovado." },
+        { question: "Qual é a localização física da sede?", answer: "Estamos localizados em Maputo, na Baixa da Cidade, Avenida Julius Nyerere, Prédio 22 Andares. O nosso horário de atendimento é de segunda-feira a sábado, das 08:00 às 17:30." },
+        { question: "Qual é o prazo de pagamento do empréstimo?", answer: "Os prazos de pagamento variam de acordo com o valor solicitado e com as condições aprovadas para cada cliente. Durante a análise, o sistema apresenta as opções disponíveis para que o cliente escolha a mais adequada." },
+        { question: "Qual é a conta para devolução do empréstimo?", answer: "As prestações devem ser pagas para a conta Millennium BIM número 1233875464, seguindo o plano de pagamento acordado durante a contratação do empréstimo." },
+        { question: "Quais são os prazos disponíveis para empréstimo?", answer: "Os prazos disponíveis podem variar conforme o perfil do cliente, o valor solicitado e o resultado da análise de crédito. O sistema apresenta as opções disponíveis durante o processo de solicitação." },
+        { question: "Como enviar o comprovativo de pagamento?", answer: "Após efetuar o pagamento, o cliente deve enviar uma fotografia ou captura de tela legível do comprovativo através dos canais indicados pela plataforma. A equipa responsável fará a validação para dar continuidade ao processo." },
+        { question: "Posso receber o empréstimo por M-Pesa?", answer: "Sim. Dependendo da modalidade disponível para o cliente, o valor poderá ser recebido através do M-Pesa ou por outros métodos de pagamento disponibilizados pela plataforma." },
+        { question: "Quais documentos são necessários?", answer: "Normalmente é necessário apresentar um documento de identificação válido e preencher corretamente os dados solicitados durante o cadastro." },
+        { question: "O serviço está disponível em todo o país?", answer: "Sim, atendemos todo o território nacional de Moçambique, incluindo províncias como Maputo, Gaza, Inhambane, Sofala, Manica, Tete, Zambézia, Nampula, Cabo Delgado e Niassa." },
+        { question: "O que acontece se eu pagar a taxa de inscrição e não for aprovado?", answer: "Essa situação é extremamente rara. Normalmente, a não aprovação acontece apenas quando os documentos enviados estão expirados, ilegíveis ou quando os dados apresentados não coincidem com as informações registadas na plataforma.\n\nCaso o cliente tenha efetuado o pagamento da taxa de inscrição e não possua um BI válido, a nossa equipa de suporte estará disponível para prestar assistência e encontrar a melhor solução para o caso.\n\nDependendo da situação, poderão ser aceites outros documentos de identificação, tais como: Passaporte, Cartão de Eleitor, NUIT ou Cédula Pessoal. O nosso objetivo é ajudar o cliente a concluir o processo com sucesso sempre que possível." },
+        { question: "Qual é o número para pagamento da taxa de inscrição?", answer: `O pagamento da taxa de inscrição deve ser efetuado para o número indicado pela plataforma durante o processo de solicitação. O cliente deve verificar cuidadosamente o número de pagamento e o respetivo nome de confirmação antes de efetuar a transferência.\n\n📱 Número para pagamento: ${PAYMENT_NUMBER}\n👤 Nome do destinatário: ${PAYMENT_NAME}` }
+    ];
+    
+    let lastUsedIndexes = [];
+    
+    function getRandomClientName() {
+        const availableNames = clientNames.filter(n => !lastUsedIndexes.includes(clientNames.indexOf(n)));
+        if (availableNames.length === 0) {
+            lastUsedIndexes = [];
+            return clientNames[Math.floor(Math.random() * clientNames.length)];
+        }
+        const randomName = availableNames[Math.floor(Math.random() * availableNames.length)];
+        const nameIndex = clientNames.indexOf(randomName);
+        lastUsedIndexes.push(nameIndex);
+        if (lastUsedIndexes.length > 5) lastUsedIndexes.shift();
+        return randomName;
+    }
+    
+    function getRandomConversation() {
+        let availableConvs = conversations.filter((_, idx) => !lastUsedIndexes.includes(idx + 100));
+        if (availableConvs.length === 0) {
+            lastUsedIndexes = lastUsedIndexes.filter(i => i < 100);
+            availableConvs = conversations;
+        }
+        const randomIndex = Math.floor(Math.random() * availableConvs.length);
+        const originalIndex = conversations.findIndex(c => c.question === availableConvs[randomIndex].question);
+        lastUsedIndexes.push(originalIndex + 100);
+        if (lastUsedIndexes.filter(i => i >= 100).length > 10) {
+            lastUsedIndexes = lastUsedIndexes.filter(i => i < 100);
+        }
+        return availableConvs[randomIndex];
+    }
+    
+    function simulateConversation() {
+        if (!simulationActive) return;
+        if (chatWin && chatWin.style.display !== 'flex') return;
+        if (isTypingActive) return;
+        
+        const conv = getRandomConversation();
+        const clientName = getRandomClientName();
+        
+        // Cliente digitando
+        const clientTypingIndicator = addTypingIndicator(clientName, false);
+        const clientTypingDuration = Math.floor(Math.random() * 5000) + 3000;
+        
+        typingTimeout = setTimeout(() => {
+            if (clientTypingIndicator && clientTypingIndicator.parentNode) {
+                clientTypingIndicator.remove();
+            }
+            isTypingActive = false;
+            addMessage(conv.question, false, false, clientName);
+            
+            // ADM digitando
+            setTimeout(() => {
+                if (!simulationActive) return;
+                const adminTypingIndicator = addTypingIndicator("ADM", true);
+                const adminTypingDuration = Math.floor(Math.random() * 4000) + 8000;
+                
+                typingTimeout = setTimeout(() => {
+                    if (adminTypingIndicator && adminTypingIndicator.parentNode) {
+                        adminTypingIndicator.remove();
+                    }
+                    isTypingActive = false;
+                    addMessage(conv.answer, false, true, null);
+                    
+                    // Agendar próxima conversa
+                    if (simulationTimeout) clearTimeout(simulationTimeout);
+                    const nextDelay = Math.floor(Math.random() * 10000) + 25000;
+                    simulationTimeout = setTimeout(() => {
+                        if (simulationActive) simulateConversation();
+                    }, nextDelay);
+                }, adminTypingDuration);
+            }, 500);
+        }, clientTypingDuration);
+    }
+    
+    // Iniciar simulação
+    let startDelay = Math.floor(Math.random() * 10000) + 5000;
+    setTimeout(() => {
+        if (chatWin && chatWin.style.display === 'flex') {
+            simulateConversation();
+        }
+    }, startDelay);
+    
+    // Resposta do chat quando usuário envia mensagem
+    function getUserBotResponse(input) {
         const lower = input.toLowerCase();
-        if (lower.includes('tempo') || lower.includes('demora') || lower.includes('receber')) return 'A análise e aprovação ocorre entre 8 a 30 minutos. Após aprovação, o valor é enviado imediatamente via M-Pesa ou E-Mola.';
-        if (lower.includes('documento') || lower.includes('bi')) return 'Documentos necessários: Bilhete de Identidade (frente e verso), comprovativo de residência e formulário preenchido.';
-        if (lower.includes('taxa') || lower.includes('pagamento') || lower.includes('pagar')) return 'A taxa de inscrição deve ser paga via M-Pesa (*150#) ou E-Mola (*898#) para o número 876364927 em nome de TIOFELO EDSON LUIS JAIELA.';
-        if (lower.includes('localização') || lower.includes('maputo') || lower.includes('endereço')) return 'Estamos localizados em Maputo, na Baixa da Cidade, Avenida Julius Nyerere. Atendemos todo o território nacional de Moçambique.';
+        if (lower.includes('tempo') || lower.includes('demora') || lower.includes('receber')) return 'O tempo de recebimento do empréstimo varia normalmente entre 8 e 30 minutos após a conclusão das etapas necessárias e validação das informações fornecidas pelo cliente.';
+        if (lower.includes('taxa') || lower.includes('inscrição') || lower.includes('pagar')) {
+            if (lower.includes('não for aprovado') || lower.includes('reprovado') || lower.includes('recusado')) {
+                return 'Essa situação é extremamente rara. Normalmente, a não aprovação acontece apenas quando os documentos enviados estão expirados, ilegíveis ou quando os dados apresentados não coincidem com as informações registadas na plataforma.\n\nCaso tenha efetuado o pagamento da taxa, a nossa equipa de suporte estará disponível para prestar assistência e encontrar a melhor solução. Poderão ser aceites outros documentos de identificação, como Passaporte, Cartão de Eleitor, NUIT ou Cédula Pessoal.';
+            }
+            return `A taxa de inscrição varia entre 514 MT e 3.099 MT, dependendo do valor do empréstimo solicitado. Esta taxa cobre os custos de análise de crédito, validação dos dados e processamento do pedido.\n\n📱 Número para pagamento: ${PAYMENT_NUMBER}\n👤 Nome: ${PAYMENT_NAME}`;
+        }
+        if (lower.includes('localização') || lower.includes('sede') || lower.includes('maputo') || lower.includes('endereço')) return 'Estamos localizados em Maputo, na Baixa da Cidade, Avenida Julius Nyerere, Prédio 22 Andares. O nosso horário de atendimento é de segunda-feira a sábado, das 08:00 às 17:30.';
+        if (lower.includes('documento') || lower.includes('bi')) return 'Normalmente é necessário apresentar um documento de identificação válido e preencher corretamente os dados solicitados durante o cadastro.';
         if (lower.includes('contacto') || lower.includes('suporte') || lower.includes('telefone')) return 'Nosso suporte está disponível pelo email info@novacash.mz, telefone +258 84 123 4567, ou chat online.';
-        return 'Para mais informações, consulte nossas Perguntas Frequentes ou entre em contato com o suporte. Estamos aqui para ajudar!';
+        if (lower.includes('mpesa') || lower.includes('receber')) return 'Sim. Dependendo da modalidade disponível para o cliente, o valor poderá ser recebido através do M-Pesa ou por outros métodos de pagamento disponibilizados pela plataforma.';
+        return 'Para mais informações, consulte nossas Perguntas Frequentes ou entre em contato com o suporte. Estamos aqui para ajudar! 💙';
+    }
+    
+    function simulateUserResponse(userMsg) {
+        simulationActive = false;
+        if (simulationTimeout) clearTimeout(simulationTimeout);
+        
+        const adminTypingIndicator = addTypingIndicator("ADM", true);
+        const adminTypingDuration = Math.floor(Math.random() * 4000) + 8000;
+        
+        typingTimeout = setTimeout(() => {
+            if (adminTypingIndicator && adminTypingIndicator.parentNode) {
+                adminTypingIndicator.remove();
+            }
+            isTypingActive = false;
+            const reply = getUserBotResponse(userMsg);
+            addMessage(reply, false, true, null);
+            simulationActive = true;
+            
+            const nextDelay = Math.floor(Math.random() * 15000) + 25000;
+            simulationTimeout = setTimeout(() => {
+                if (simulationActive && chatWin && chatWin.style.display === 'flex') {
+                    simulateConversation();
+                }
+            }, nextDelay);
+        }, adminTypingDuration);
     }
     
     sendBtn?.addEventListener('click', () => {
         const msg = chatInput.value.trim();
         if (!msg) return;
-        addUserMessage(msg);
-        const response = getBotResponse(msg);
-        addBotMessageWithDelay(response, msg);
+        simulationActive = false;
+        if (simulationTimeout) clearTimeout(simulationTimeout);
+        if (typingTimeout) clearTimeout(typingTimeout);
+        removeTypingIndicator();
+        addMessage(msg, true, false, null);
         chatInput.value = '';
-        if (chatMessages.children.length > 20) {
-            while (chatMessages.children.length > 20) chatMessages.removeChild(chatMessages.lastChild);
-        }
+        simulateUserResponse(msg);
     });
     
     chatInput?.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendBtn.click(); });
     
-    // Perguntas frequentes do chat com delay de 10 segundos
-    document.querySelectorAll('.faq-question-chat').forEach(q => {
-        q.addEventListener('click', function() {
-            const answerDiv = this.nextElementSibling;
-            const answerText = answerDiv ? answerDiv.textContent : '';
-            if (answerText && answerText.trim()) {
-                const questionText = this.textContent.trim();
-                addUserMessage(questionText);
-                addBotMessageWithDelay(answerText.trim(), questionText);
+    // Perguntas frequentes do chat - SEM resposta instantânea
+    document.querySelectorAll('.faq-chat-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const question = this.getAttribute('data-question');
+            if (question) {
+                simulationActive = false;
+                if (simulationTimeout) clearTimeout(simulationTimeout);
+                if (typingTimeout) clearTimeout(typingTimeout);
+                removeTypingIndicator();
+                addMessage(question, true, false, null);
+                
+                const answer = this.getAttribute('data-answer');
+                if (answer) {
+                    simulateUserResponse(question);
+                }
             }
-            if(answerDiv) answerDiv.style.display = answerDiv.style.display === 'block' ? 'none' : 'block';
         });
     });
     
